@@ -1,0 +1,4 @@
+Tanja wird dafür sorgen, dass es nach dem Starten des Programmes, der User einen Fenster mit ÜbungsSort bekommt, und 
+von 5 Optionen auswählen kann(zb: Addition, Multilikation...), dann wird Youssef die Knöpfen bearbeiten, sodass
+es nach dem Wahl, die dafür geeigneten Fenster mit den richtigen Textfelder, und die richtige Texte drin,
+man im Schirm bekommt.
