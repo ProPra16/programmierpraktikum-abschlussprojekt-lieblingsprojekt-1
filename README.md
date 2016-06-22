@@ -1,7 +1,7 @@
 ##Programm für das 7 Projekt vom Programmierpraktikum 
 
-Für alle beteiligten Infos zum Import:
-1. Damit der Ordner lokal für euch verfügbar ist muss folgender Code in der Kommandozeile eingegeben werden:
+Für alle beteiligten Infos zum Import:<br />
+1. Damit der Ordner lokal für euch verfügbar ist muss folgender Code in der Kommandozeile eingegeben werden:<br />
 git clone https://github.com/ProPra16/programmierpraktikum-abschlussprojekt-lieblingsprojekt-1.git
 
 Für spätere Updates nur noch den Befehl "git push" verwenden
