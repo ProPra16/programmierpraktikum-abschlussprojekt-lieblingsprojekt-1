@@ -31,7 +31,7 @@ public class Start extends Application {
 	//***********************************************************************************
 	// TESTCODE für die Implementierung des Compilers
 	// Speter wird der Text automatisch aus dem Textfeld genommen
-	private String codetest = "import static org.junit.Assert.*;\n"
+	private String codeTest = "import static org.junit.Assert.*;\n"
 			+ "import org.junit.Test;\n"
 			+	"public class TestTest{\n"
 					+"@Test\n"
@@ -40,7 +40,7 @@ public class Start extends Application {
 							+"}\n"
 					+"}";
 	
-	private String codemain = "public class RomanNumberConverter{\n"
+	private String codeMain = "public class RomanNumberConverter{\n"
         +"public static String convert(){\n"
         +"return null;\n"
         +"}\n"
@@ -51,7 +51,7 @@ public class Start extends Application {
 			
     private Parent createContent(){
         Pane root = new Pane();
-        root.setPrefSize(550, 550);
+        root.setPrefSize(950, 550);
 		
 		// Button zum starten damit der Uebungskatalog in einem neuen Fenster angezeigt wird
 		Button ubung = new Button("Uebung reinladen");
@@ -64,14 +64,13 @@ public class Start extends Application {
 		red.setTranslateY(80);
 		
 		// Textfeld fuer die Test.java Datei
-		TextArea textTest = new TextArea("Test");
-		textTest.setPrefWidth(200);
+		TextArea textTest = new TextArea(codeTest);
+		textTest.setPrefWidth(300);
 		textTest.setPrefHeight(200);
 		textTest.setTranslateX(200);
 		textTest.setTranslateY(85);
 		textTest.setDisable(true);
 
-		
 		// Beschreibungsfeld fuer den RED Button
 		Label label = new Label("Beschreibung");
 		label.setTranslateX(85);
@@ -84,12 +83,20 @@ public class Start extends Application {
 		green.setDisable(true);
 		
 		// Textfeld fuer die Class.java Datei
-		TextArea textProgramm = new TextArea("Code");
-		textProgramm.setPrefWidth(200);
+		TextArea textProgramm = new TextArea(codeMain);
+		textProgramm.setPrefWidth(300);
 		textProgramm.setPrefHeight(200);
 		textProgramm.setTranslateX(200);
 		textProgramm.setTranslateY(290);
 		textProgramm.setDisable(true);		
+		
+		// Textfeld fuer die Konsole
+		TextArea textKonsole = new TextArea("Konsole");
+		textKonsole.setPrefWidth(300);
+		textKonsole.setPrefHeight(200);
+		textKonsole.setTranslateX(625);
+		textKonsole.setTranslateY(85);
+		textKonsole.setDisable(true);
 		
 		// Beschreibungsfeld fuer den GREEN Button
 		Label label1 = new Label("Beschreibung");
@@ -98,19 +105,19 @@ public class Start extends Application {
 
 		// Button Starte Test um die Test.java Datei zu kompilieren und starten
 		Button startTest = new Button("Starte Test");
-		startTest.setTranslateX(400);
+		startTest.setTranslateX(500);
 		startTest.setTranslateY(85);
 		startTest.setDisable(true);
 		
 		// Button Pruefe Programm der Prueft ob der Test erfolgreich ist
 		Button pruefeProg = new Button("Pruefe Programm");
-		pruefeProg.setTranslateX(400);
+		pruefeProg.setTranslateX(500);
 		pruefeProg.setTranslateY(290);
 		pruefeProg.setDisable(true);
 		
 		// Button Wechsele zu RED der wieder zum RED Schritt zurueckgeht
 		Button backtoRed = new Button("Wechsle zu RED");
-		backtoRed.setTranslateX(400);
+		backtoRed.setTranslateX(500);
 		backtoRed.setTranslateY(325);
 		backtoRed.setDisable(true);
 		
@@ -150,14 +157,17 @@ public class Start extends Application {
 		startTest.setOnAction(new EventHandler <ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae){
-				testErgolreich = true;
+				testErgolreich = compiliere(textTest.getText(), textProgramm.getText(), textKonsole);
 				if(testErgolreich == true){
 					red.setDisable(true);
+					startTest.setDisable(false);
 					green.setDisable(false);
 					pruefeProg.setDisable(false);
 					backtoRed.setDisable(false);
-					System.out.println(textTest.getText());
-					compiliere();	
+					textTest.setDisable(true);
+				}
+				else{
+					System.out.println("Es ergab keine Fehler, bitte Test erneut schreiben");
 				}
 			}
 		});
@@ -165,6 +175,7 @@ public class Start extends Application {
 		// Fuege Textfelder hinzu
 		root.getChildren().add(textProgramm);
 		root.getChildren().add(textTest);
+		root.getChildren().add(textKonsole);
 		
 		// Fuege Buttons hinzu
 		root.getChildren().add(ubung);
@@ -223,17 +234,26 @@ public class Start extends Application {
         stage.show();
     }
     
-    private void compiliere(){
-    	CompilationUnit classTest = new CompilationUnit("TestCode", codetest, true);
-    	CompilationUnit classMain = new CompilationUnit("RomanNumberConverter", codemain, false);
-    	JavaStringCompiler javaCompilers = CompilerFactory.getCompiler(classMain, classTest);
+    private boolean compiliere(String codeTest, String codeMain, TextArea textKonsole){	
+    	boolean result = false;
     	try{
+    		CompilationUnit classTest = new CompilationUnit("TestCode", codeTest, true);
+        	CompilationUnit classMain = new CompilationUnit("RomanNumberConverter", codeMain, false); 
+    		JavaStringCompiler javaCompilers = CompilerFactory.getCompiler(classMain, classTest);
     		javaCompilers.compileAndRunTests();
+    		result = javaCompilers.getCompilerResult().hasCompileErrors(); 
+    		if(result){
+    			textKonsole.setText(javaCompilers.getCompilerResult().getCompilerErrorsForCompilationUnit(classTest).toString());
+    			textKonsole.setDisable(false);
+    			return true;	
+    		}
+    		else return false;  		
     	}
     	catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
-    	
+
     }
     
     public static void main(String... args) {
