@@ -23,5 +23,5 @@ Danach Rechtsklick auf den Ordner res/ und Mark directory as -> Resources Root w
 
 # Updates
 
-26.06.2016 - Erstellung der Aufgaben.xml Formate, damit wir auf dem Aufgabenblatt die Übungsgruppenleiter die Aufgaben in xml Format erstellen können
+26.06.2016 - Erstellung der Aufgaben.xml Formate, damit wir auf dem Aufgabenblatt die Übungsgruppenleiter die Aufgaben in xml Format erstellen können<br />
 26.06.2016 - Hinzunhme der Bibliotheken für den Java Compiler und den JUnit Testrunner dazu wurde eine neue Methode erstellt die den Code testet
