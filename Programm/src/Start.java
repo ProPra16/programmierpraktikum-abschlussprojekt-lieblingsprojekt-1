@@ -3,6 +3,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import jdk.nashorn.internal.codegen.CompilationException;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -13,6 +14,13 @@ import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TextArea;
+// Imports fuer die Bibilothek vom Java Compiler
+import vk.core.api.CompilationUnit;
+import vk.core.api.CompilerFactory;
+import vk.core.api.JavaStringCompiler;
+import static org.junit.Assert.*;
+import org.junit.Test;
+
 
 public class Start extends Application {
 
@@ -20,7 +28,27 @@ public class Start extends Application {
 	private Button red;
 	private boolean geladen = false;
 	private boolean testErgolreich = false; // Hier muss die Schnittstelle implementiert werden
-
+	//***********************************************************************************
+	// TESTCODE für die Implementierung des Compilers
+	// Speter wird der Text automatisch aus dem Textfeld genommen
+	private String codetest = "import static org.junit.Assert.*;\n"
+			+ "import org.junit.Test;\n"
+			+	"public class TestTest{\n"
+					+"@Test\n"
+							+"public void aTest(){\n"
+							+"	assertEquals(null,TestCode.convert());\n"
+							+"}\n"
+					+"}";
+	
+	private String codemain = "public class RomanNumberConverter{\n"
+        +"public static String convert(){\n"
+        +"return null;\n"
+        +"}\n"
+        +"}\n";
+	/// Testcode Ende
+	//***********************************************************************************
+	
+			
     private Parent createContent(){
         Pane root = new Pane();
         root.setPrefSize(550, 550);
@@ -42,6 +70,7 @@ public class Start extends Application {
 		textTest.setTranslateX(200);
 		textTest.setTranslateY(85);
 		textTest.setDisable(true);
+
 		
 		// Beschreibungsfeld fuer den RED Button
 		Label label = new Label("Beschreibung");
@@ -60,7 +89,7 @@ public class Start extends Application {
 		textProgramm.setPrefHeight(200);
 		textProgramm.setTranslateX(200);
 		textProgramm.setTranslateY(290);
-		textProgramm.setDisable(true);
+		textProgramm.setDisable(true);		
 		
 		// Beschreibungsfeld fuer den GREEN Button
 		Label label1 = new Label("Beschreibung");
@@ -121,11 +150,14 @@ public class Start extends Application {
 		startTest.setOnAction(new EventHandler <ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae){
+				testErgolreich = true;
 				if(testErgolreich == true){
 					red.setDisable(true);
 					green.setDisable(false);
 					pruefeProg.setDisable(false);
 					backtoRed.setDisable(false);
+					System.out.println(textTest.getText());
+					compiliere();	
 				}
 			}
 		});
@@ -190,8 +222,22 @@ public class Start extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
+    
+    private void compiliere(){
+    	CompilationUnit classTest = new CompilationUnit("TestCode", codetest, true);
+    	CompilationUnit classMain = new CompilationUnit("RomanNumberConverter", codemain, false);
+    	JavaStringCompiler javaCompilers = CompilerFactory.getCompiler(classMain, classTest);
+    	try{
+    		javaCompilers.compileAndRunTests();
+    	}
+    	catch (Exception e) {
+            e.printStackTrace();
+        }
+    	
+    }
+    
     public static void main(String... args) {
         launch();
     }
+    
 }
