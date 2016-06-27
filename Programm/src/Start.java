@@ -19,7 +19,20 @@ import vk.core.api.CompilationUnit;
 import vk.core.api.CompilerFactory;
 import vk.core.api.JavaStringCompiler;
 import static org.junit.Assert.*;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.junit.Test;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 
 public class Start extends Application {
@@ -30,7 +43,7 @@ public class Start extends Application {
 	private boolean testErgolreich = false; // Hier muss die Schnittstelle implementiert werden
 	//***********************************************************************************
 	// TESTCODE für die Implementierung des Compilers
-	// Speter wird der Text automatisch aus dem Textfeld genommen
+	// Spaeter wird der Text automatisch aus dem Textfeld genommen
 	private String codeTest = "import static org.junit.Assert.*;\n"
 			+ "import org.junit.Test;\n"
 			+	"public class TestTest{\n"
@@ -48,7 +61,17 @@ public class Start extends Application {
 	/// Testcode Ende
 	//***********************************************************************************
 	
-			
+	
+	// fuer das Lesen der XML Datei:
+	private DocumentBuilderFactory dbfactory;
+	private Document document;
+	private NodeList tableNodeList;
+	private String aufgabe;
+	
+	
+	
+	
+	
     private Parent createContent(){
         Pane root = new Pane();
         root.setPrefSize(950, 550);
@@ -81,6 +104,11 @@ public class Start extends Application {
 		green.setTranslateX(20);
 		green.setTranslateY(290);
 		green.setDisable(true);
+		
+		// Button Exit zum Schliessen des Programms
+		Button exit = new Button("Exit");
+		exit.setTranslateX(500);
+		exit.setTranslateY(500);
 		
 		// Textfeld fuer die Class.java Datei
 		TextArea textProgramm = new TextArea(codeMain);
@@ -128,7 +156,11 @@ public class Start extends Application {
 			public void handle(ActionEvent ae){
 				Stage stage = new Stage();
 				stage.setTitle("Aufgabe");
-				stage.setScene(new Scene(aufgabe(stage)));
+				try {
+					stage.setScene(new Scene(aufgabe(stage)));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				stage.show();
 			}
 		});
@@ -152,6 +184,16 @@ public class Start extends Application {
 				textTest.setDisable(true);			
 			}
 		});
+		
+		
+		// Exit beendet das Programm
+		exit.setOnAction(new EventHandler <ActionEvent>(){
+			@Override
+			public void handle(ActionEvent ae){
+				System.exit(0);			
+			}
+		});
+		
 		
 		// Wenn der Test erfolgreich ist dann kann der GREEN Prozess gestartet werden
 		startTest.setOnAction(new EventHandler <ActionEvent>() {
@@ -184,6 +226,7 @@ public class Start extends Application {
 		root.getChildren().add(startTest);
 		root.getChildren().add(pruefeProg);
 		root.getChildren().add(backtoRed);
+		root.getChildren().add(exit);
 		
 		// Fuege Labels hinzu
 		root.getChildren().add(label);
@@ -193,19 +236,35 @@ public class Start extends Application {
 	}
 
     // code fuer das Fenster Uebugnsaufgaben: uebernimmt die stage (Fenster) damit beim Knopf druecken reinladen dies automatisch geschlossen wird
-	private Parent aufgabe(Stage stage){
+	private Parent aufgabe(Stage stage) throws Exception{
 		
 		Pane root = new Pane();
 		root.setPrefSize(400,400);
 		
 		// Liste für die Auswahl der Programme -> Hier muesstet Ihr mit Array Lists arbeiten
 		ListView<String> list = new ListView<String>();
-		ObservableList<String> items = FXCollections.observableArrayList (
-			"Beispiel","Beispiel2");
+		
+		
+		
+		ObservableList<String> items = FXCollections.observableArrayList ();
+		
+		// im Folgenden wird die Datei Aufgaben.xml nach dem Begriff "exercise" durchsucht; alle Eintraege hinter "exercise name" werden ausgegeben
+		dbfactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = dbfactory.newDocumentBuilder();	
+		document = builder.parse(new File("Aufgaben.xml"));
+		
+				
+		tableNodeList = document.getElementsByTagName("exercise");
+		
+		//Aufgabenanzahl innerhalb der Aufgaben.xml Datei
+		int aufgabenanzahl= tableNodeList.getLength();
+		
+		read_exercise(aufgabenanzahl,items);
+		
 		
 		list.setItems(items);
-		list.setPrefWidth(100);
-		list.setPrefHeight(70);
+		list.setPrefWidth(200);
+		list.setPrefHeight(100);
 		
 		// Erstelle Reinladen Button damit die Ubungsaufgabe reingeladen wird
 		Button reinladen = new Button("Reinladen");
@@ -256,8 +315,20 @@ public class Start extends Application {
 
     }
     
+    // Auslesen der Aufgabennamen aus der XML-Datei
+    public ObservableList<String> read_exercise(int aufgabenanzahl,ObservableList<String> items){
+		for(int i = 0; i< aufgabenanzahl; i++){
+			aufgabe = tableNodeList.item(i).getAttributes().getNamedItem("name").getTextContent().toString();
+			items.add(aufgabe);
+		}
+		return items;
+	}
+    
+    
     public static void main(String... args) {
         launch();
     }
     
 }
+
+
