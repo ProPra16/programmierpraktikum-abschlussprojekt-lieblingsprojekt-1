@@ -2,12 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/virtual-kata-lib/src/main/java/vk/core/api/CompilationUnit.java"/>
-	<classpathentry kind="lib" path="/virtual-kata-lib/src/main/java/vk/core/api/CompileError.java"/>
-	<classpathentry kind="lib" path="/virtual-kata-lib/src/main/java/vk/core/api/CompilerFactory.java"/>
-	<classpathentry kind="lib" path="/virtual-kata-lib/src/main/java/vk/core/api/CompilerResult.java"/>
-	<classpathentry kind="lib" path="/virtual-kata-lib/src/main/java/vk/core/api/JavaStringCompiler.java"/>
-	<classpathentry kind="lib" path="/virtual-kata-lib/src/main/java/vk/core/api/TestFailure.java"/>
-	<classpathentry kind="lib" path="/virtual-kata-lib/src/main/java/vk/core/api/TestResult.java"/>
+	<classpathentry kind="lib" path="C:/Users/Robert/Documents/GitHub/Lieblingsprojekt/Programm/virtual-kata-lib-1.0.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
