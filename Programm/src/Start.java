@@ -67,7 +67,7 @@ public class Start extends Application {
 	private Document document;
 	private NodeList tableNodeList;
 	private String aufgabe;
-	
+	private Stage ExtraStage;
 	
 	
 	
@@ -251,7 +251,7 @@ public class Start extends Application {
 		// im Folgenden wird die Datei Aufgaben.xml nach dem Begriff "exercise" durchsucht; alle Eintraege hinter "exercise name" werden ausgegeben
 		dbfactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = dbfactory.newDocumentBuilder();	
-		document = builder.parse(new File("Aufgaben.xml"));
+		document = builder.parse(new File("Programm/Aufgaben.xml"));
 		
 				
 		tableNodeList = document.getElementsByTagName("exercise");
@@ -275,8 +275,16 @@ public class Start extends Application {
 		reinladen.setOnAction(new EventHandler <ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae){
+				//Neue Objekt machen, und direkt die nötige Parameters beim Constructor geben.
+				ReinladenClasse reinladenobjekt=new ReinladenClasse(tableNodeList, list, aufgabenanzahl, document);
+				//die beide String Variabelen kriegen ihren neue Werte :)
+				codeMain=reinladenobjekt.GetNeueCodeMain();
+				codeTest=reinladenobjekt.GetNeueCodeTest();
+				
 				geladen = true;	
 				stage.close();
+				//Auf den schirm mit den neuen Werten Aktualisieren.
+				ExtraStage.setScene(new Scene(createContent()));
 			}
 		});
 
@@ -287,6 +295,7 @@ public class Start extends Application {
 
     @Override
     public void start(Stage stage){
+    	ExtraStage=stage;
         scene = new Scene(createContent());
         stage.setTitle("Lieblingsprojekt");
         stage.setScene(scene);
