@@ -20,6 +20,9 @@ import vk.core.api.CompilerFactory;
 import vk.core.api.JavaStringCompiler;
 import static org.junit.Assert.*;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -39,10 +42,11 @@ public class Start extends Application {
 
     private Scene scene;
 	private Button red;
+	private Timer timer;
 	private boolean geladen = false;
 	private boolean testErfolgreich = false;
 	//***********************************************************************************
-	// TESTCODE für die Implementierung des Compilers
+	// TESTCODE fÃ¼r die Implementierung des Compilers
 	// Spaeter wird der Text automatisch aus dem Textfeld genommen
 	private String codeTest = "import static org.junit.Assert.*;\n"
 			+ "import org.junit.Test;\n"
@@ -74,6 +78,7 @@ public class Start extends Application {
         Pane root = new Pane();
         root.setPrefSize(950, 550);
 		
+		timer = new Timer();
 		// Button zum starten damit der Uebungskatalog in einem neuen Fenster angezeigt wird
 		Button ubung = new Button("Uebung reinladen");
 		ubung.setTranslateX(20);
@@ -168,6 +173,13 @@ public class Start extends Application {
 			@Override
 			public void handle(ActionEvent ae){
 				if(geladen == true){
+					timer.schedule(new TimerTask(){
+						@Override
+						public void run(){
+							textTest.setText("");
+							timer.cancel();
+						}
+					}, 180000);
 					textTest.setDisable(false);
 					startTest.setDisable(false);
 				}
@@ -252,7 +264,7 @@ public class Start extends Application {
 		Pane root = new Pane();
 		root.setPrefSize(400,400);
 		
-		// Liste für die Auswahl der Programme -> Hier muesstet Ihr mit Array Lists arbeiten
+		// Liste fÃ¼r die Auswahl der Programme -> Hier muesstet Ihr mit Array Lists arbeiten
 		ListView<String> list = new ListView<String>();
 				
 		ObservableList<String> items = FXCollections.observableArrayList ();
@@ -283,7 +295,7 @@ public class Start extends Application {
 		reinladen.setOnAction(new EventHandler <ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae){
-				//Neue Objekt machen, und direkt die nötige Parameters beim Constructor geben.
+				//Neue Objekt machen, und direkt die nÃ¶tige Parameters beim Constructor geben.
 				ReinladenClasse reinladenobjekt=new ReinladenClasse(tableNodeList, list, aufgabenanzahl, document);
 				//die beide String Variabelen kriegen ihren neue Werte :)
 				codeMain = reinladenobjekt.GetNeueCodeMain();
