@@ -40,7 +40,7 @@ public class Start extends Application {
     private Scene scene;
 	private Button red;
 	private boolean geladen = false;
-	private boolean testErgolreich = false; // Hier muss die Schnittstelle implementiert werden
+	private boolean testErfolgreich = false;
 	//***********************************************************************************
 	// TESTCODE für die Implementierung des Compilers
 	// Spaeter wird der Text automatisch aus dem Textfeld genommen
@@ -60,17 +60,15 @@ public class Start extends Application {
         +"}\n";
 	/// Testcode Ende
 	//***********************************************************************************
-	
+	private boolean isBaby, isTracked;
+	private String nameMain, nameTest;
 	
 	// fuer das Lesen der XML Datei:
 	private DocumentBuilderFactory dbfactory;
 	private Document document;
 	private NodeList tableNodeList;
 	private String aufgabe;
-	private Stage ExtraStage;
-	
-	
-	
+	private Stage ExtraStage;	
 	
     private Parent createContent(){
         Pane root = new Pane();
@@ -199,8 +197,8 @@ public class Start extends Application {
 		startTest.setOnAction(new EventHandler <ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae){
-				testErgolreich = compiliere(textTest.getText(), textProgramm.getText(), textKonsole);
-				if(testErgolreich == true){
+				testErfolgreich = compiliere(textTest.getText(), nameTest, textProgramm.getText(), nameMain, textKonsole);
+				if(testErfolgreich){
 					red.setDisable(true);
 					startTest.setDisable(false);
 					green.setDisable(false);
@@ -209,7 +207,20 @@ public class Start extends Application {
 					textTest.setDisable(true);
 				}
 				else{
-					System.out.println("Es ergab keine Fehler, bitte Test erneut schreiben");
+					textKonsole.setText("Es ergab keine Fehler, bitte Test erneut schreiben");
+				}
+			}
+		});
+		
+		pruefeProg.setOnAction(new EventHandler <ActionEvent>() {
+			@Override
+			public void handle(ActionEvent ae){
+				testErfolgreich = compiliere(textTest.getText(), nameTest, textProgramm.getText(), nameMain, textKonsole);
+				if(testErfolgreich){
+					green.setDisable(true);
+					startTest.setDisable(true);
+					textProgramm.setDisable(false);
+					textTest.setDisable(false);
 				}
 			}
 		});
@@ -243,17 +254,14 @@ public class Start extends Application {
 		
 		// Liste für die Auswahl der Programme -> Hier muesstet Ihr mit Array Lists arbeiten
 		ListView<String> list = new ListView<String>();
-		
-		
-		
+				
 		ObservableList<String> items = FXCollections.observableArrayList ();
 		
 		// im Folgenden wird die Datei Aufgaben.xml nach dem Begriff "exercise" durchsucht; alle Eintraege hinter "exercise name" werden ausgegeben
 		dbfactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = dbfactory.newDocumentBuilder();	
-		document = builder.parse(new File("Programm/Aufgaben.xml"));
+		document = builder.parse(new File("Aufgaben.xml"));
 		
-				
 		tableNodeList = document.getElementsByTagName("exercise");
 		
 		//Aufgabenanzahl innerhalb der Aufgaben.xml Datei
@@ -271,22 +279,30 @@ public class Start extends Application {
 		reinladen.setTranslateX(300);
 		reinladen.setTranslateY(20);
 		
-		// To Do wenn der Knopf gedrueckt wurde
+		// To Do Wenn der Knopf gedrueckt wurde
 		reinladen.setOnAction(new EventHandler <ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae){
 				//Neue Objekt machen, und direkt die nötige Parameters beim Constructor geben.
 				ReinladenClasse reinladenobjekt=new ReinladenClasse(tableNodeList, list, aufgabenanzahl, document);
 				//die beide String Variabelen kriegen ihren neue Werte :)
-				codeMain=reinladenobjekt.GetNeueCodeMain();
-				codeTest=reinladenobjekt.GetNeueCodeTest();
-				
+				codeMain = reinladenobjekt.GetNeueCodeMain();
+				codeTest = reinladenobjekt.GetNeueCodeTest();
+				nameMain = reinladenobjekt.GetNameMain();
+				nameTest = reinladenobjekt.GetNameTest();
+				isBaby = reinladenobjekt.GetBabystep();
+				if(isBaby){
+					int babyValue = reinladenobjekt.GetBabystepTime();
+				}
+				isTracked = reinladenobjekt.GetTimetracking();
 				geladen = true;	
 				stage.close();
-				//Auf den schirm mit den neuen Werten Aktualisieren.
+				//Auf den Schirm mit den neuen Werten Aktualisieren.
 				ExtraStage.setScene(new Scene(createContent()));
 			}
 		});
+		
+		
 
 		root.getChildren().add(list);
 		root.getChildren().add(reinladen);
@@ -302,20 +318,31 @@ public class Start extends Application {
         stage.show();
     }
     
-    private boolean compiliere(String codeTest, String codeMain, TextArea textKonsole){	
+    private boolean compiliere(String codeTest, String nameTest, String codeMain, String nameMain, TextArea textKonsole){	
     	boolean result = false;
     	try{
-    		CompilationUnit classTest = new CompilationUnit("TestCode", codeTest, true);
-        	CompilationUnit classMain = new CompilationUnit("RomanNumberConverter", codeMain, false); 
-    		JavaStringCompiler javaCompilers = CompilerFactory.getCompiler(classMain, classTest);
+    		CompilationUnit classTest = new CompilationUnit(nameTest, codeTest, true);
+        	CompilationUnit classMain = new CompilationUnit(nameMain, codeMain, false); 
+        	JavaStringCompiler javaCompilers = CompilerFactory.getCompiler(classMain, classTest);
     		javaCompilers.compileAndRunTests();
-    		result = javaCompilers.getCompilerResult().hasCompileErrors(); 
     		if(result){
+    			//textKonsole.clear();
     			textKonsole.setText(javaCompilers.getCompilerResult().getCompilerErrorsForCompilationUnit(classTest).toString());
     			textKonsole.setDisable(false);
     			return true;	
     		}
-    		else return false;  		
+    		else{
+    			if(javaCompilers.getTestResult().getNumberOfFailedTests() >= 1){
+    				javaCompilers.compileAndRunTests();
+        			//textKonsole.clear();
+        			textKonsole.setText(javaCompilers.getCompilerResult().getCompilerErrorsForCompilationUnit(classTest).toString());
+        			textKonsole.setDisable(false);
+    				return true;
+    			}
+    			else{
+    			return false;  	
+    			}
+    		}
     	}
     	catch (Exception e) {
             e.printStackTrace();
@@ -333,11 +360,9 @@ public class Start extends Application {
 		return items;
 	}
     
-    
     public static void main(String... args) {
         launch();
-    }
-    
+    }   
 }
 
 

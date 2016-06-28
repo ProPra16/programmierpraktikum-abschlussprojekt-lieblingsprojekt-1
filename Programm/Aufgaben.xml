@@ -1,4 +1,4 @@
-<tasks>
+﻿<tasks>
     <exercise name="Test">
         <description>Test ya Shit</description>
             <class name="TestCode">
