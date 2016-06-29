@@ -14,4 +14,8 @@ install: /bin/true
 
 sudo: false
 
-script: TERM=dumb gradle clean uploadArchives
+script: 
+- echo "Start"
+- gradle clean build
+- echo "ende"
+- TERM=dumb gradle clean uploadArchives
