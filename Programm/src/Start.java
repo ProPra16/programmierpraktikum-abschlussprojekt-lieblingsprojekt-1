@@ -286,7 +286,7 @@ public class Start extends Application {
 		Pane root = new Pane();
 		root.setPrefSize(400,400);
 		
-		// Liste für die Auswahl der Programme -> Hier muesstet Ihr mit Array Lists arbeiten
+		// Liste fuer die Auswahl der Programme -> Hier muesstet Ihr mit Array Lists arbeiten
 		ListView<String> list = new ListView<String>();
 				
 		ObservableList<String> items = FXCollections.observableArrayList ();
@@ -317,7 +317,7 @@ public class Start extends Application {
 		reinladen.setOnAction(new EventHandler <ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae){
-				//Neue Objekt machen, und direkt die nötige Parameters beim Constructor geben.
+				//Neue Objekt machen, und direkt die noetige Parameters beim Constructor geben.
 				ReinladenClasse reinladenobjekt=new ReinladenClasse(tableNodeList, list, aufgabenanzahl, document);
 				//die beide String Variabelen kriegen ihren neue Werte :)
 				codeMain = reinladenobjekt.GetNeueCodeMain();
@@ -359,18 +359,17 @@ public class Start extends Application {
         	CompilationUnit classMain = new CompilationUnit(nameMain, codeMain, false); 
         	JavaStringCompiler javaCompilers = CompilerFactory.getCompiler(classMain, classTest);
     		javaCompilers.compileAndRunTests();
+    		result = javaCompilers.getCompilerResult().hasCompileErrors();
     		if(result){
-    			//textKonsole.clear();
     			textKonsole.setText(javaCompilers.getCompilerResult().getCompilerErrorsForCompilationUnit(classTest).toString());
     			textKonsole.setDisable(false);
-    			return true;	
+    			return true;
     		}
     		else{
-    			if(javaCompilers.getTestResult().getNumberOfFailedTests() >= 1){
-    				javaCompilers.compileAndRunTests();
-        			//textKonsole.clear();
-        			textKonsole.setText(javaCompilers.getCompilerResult().getCompilerErrorsForCompilationUnit(classTest).toString());
-        			textKonsole.setDisable(false);
+    			if(javaCompilers.getTestResult().getNumberOfFailedTests() >= 1){    				
+    				String sTest = javaCompilers.getCompilerResult().getCompilerErrorsForCompilationUnit(classTest).toString();
+    				String sMain = javaCompilers.getCompilerResult().getCompilerErrorsForCompilationUnit(classMain).toString();
+    				textKonsole.setText("Error " + javaCompilers.getTestResult().getNumberOfFailedTests()+" "+ sTest +" "+ sMain);      			
     				return true;
     			}
     			else{
