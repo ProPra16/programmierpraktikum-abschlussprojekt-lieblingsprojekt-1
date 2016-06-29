@@ -46,7 +46,7 @@ public class Start extends Application {
 	private boolean geladen = false;
 	private boolean testErfolgreich = false;
 	//***********************************************************************************
-	// TESTCODE f√ºr die Implementierung des Compilers
+	// TESTCODE fuer die Implementierung des Compilers
 	// Spaeter wird der Text automatisch aus dem Textfeld genommen
 	private String codeTest = "import static org.junit.Assert.*;\n"
 			+ "import org.junit.Test;\n"
@@ -65,7 +65,7 @@ public class Start extends Application {
 	/// Testcode Ende
 	//***********************************************************************************
 	private boolean isBaby, isTracked;
-	private String nameMain, nameTest;
+	private String nameMain, nameTest, backUpMain;
 	
 	// fuer das Lesen der XML Datei:
 	private DocumentBuilderFactory dbfactory;
@@ -127,7 +127,7 @@ public class Start extends Application {
 		textKonsole.setPrefHeight(200);
 		textKonsole.setTranslateX(625);
 		textKonsole.setTranslateY(85);
-		textKonsole.setDisable(true);
+		textKonsole.setEditable(false);
 		
 		// Beschreibungsfeld fuer den GREEN Button
 		Label label1 = new Label("Beschreibung");
@@ -181,7 +181,9 @@ public class Start extends Application {
 						}
 					}, 180000);
 					textTest.setDisable(false);
+					textProgramm.setDisable(true);
 					startTest.setDisable(false);
+					backUpMain = textProgramm.getText();
 				}
 			}
 		});
@@ -190,6 +192,8 @@ public class Start extends Application {
 		green.setOnAction(new EventHandler <ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae){
+				pruefeProg.setDisable(false);
+				backtoRed.setDisable(false);
 				textProgramm.setDisable(false);
 				textTest.setDisable(true);			
 			}
@@ -214,9 +218,8 @@ public class Start extends Application {
 					red.setDisable(true);
 					startTest.setDisable(false);
 					green.setDisable(false);
-					pruefeProg.setDisable(false);
-					backtoRed.setDisable(false);
 					textTest.setDisable(true);
+					startTest.setDisable(true);
 				}
 				else{
 					textKonsole.setText("Es ergab keine Fehler, bitte Test erneut schreiben");
@@ -229,12 +232,31 @@ public class Start extends Application {
 			public void handle(ActionEvent ae){
 				testErfolgreich = compiliere(textTest.getText(), nameTest, textProgramm.getText(), nameMain, textKonsole);
 				if(testErfolgreich){
-					green.setDisable(true);
-					startTest.setDisable(true);
-					textProgramm.setDisable(false);
+					textKonsole.setText("Nicht Erfolgreich, bitte Main weiter ab‰ndern");
+				}
+				else{
+					textKonsole.setText("Erfolgreich, du kannst die Test Methoden und Main Programm anpassen");
+					red.setDisable(false);
+					green.setDisable(true);					
+					pruefeProg.setDisable(true);
+					backtoRed.setDisable(true);
 					textTest.setDisable(false);
+					textProgramm.setDisable(false);
 				}
 			}
+		});
+		
+		backtoRed.setOnAction(new EventHandler <ActionEvent>() {
+			@Override
+			public void handle(ActionEvent ae){
+				startTest.setDisable(false);
+				green.setDisable(true);				
+				backtoRed.setDisable(true);	
+				pruefeProg.setDisable(true);	
+				textTest.setDisable(false);
+				textProgramm.setText(backUpMain);
+				textProgramm.setDisable(true);
+				}
 		});
 		
 		// Fuege Textfelder hinzu
