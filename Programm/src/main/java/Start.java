@@ -147,14 +147,14 @@ public class Start extends Application {
 		ubung.setOnAction(new EventHandler <ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae){
-				Stage stage = new Stage();
-				stage.setTitle("Aufgabe");
+				Stage stage_ubung = new Stage();
+				stage_ubung.setTitle("Aufgabe");
 				try {
-					stage.setScene(new Scene(aufgabe(stage)));
+					stage_ubung.setScene(new Scene(aufgabe(stage_ubung)));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				stage.show();
+				stage_ubung.show();
 			}
 		});
 		
@@ -288,12 +288,12 @@ public class Start extends Application {
 	}
 
     // code fuer das Fenster Uebugnsaufgaben: uebernimmt die stage (Fenster) damit beim Knopf druecken reinladen dies automatisch geschlossen wird
-	private Parent aufgabe(Stage stage) throws Exception{
+	private Parent aufgabe(Stage stage_ubung) throws Exception{
 		
 		Pane root = new Pane();
 		root.setPrefSize(400,400);
 		
-		// Liste fuer die Auswahl der Programme -> Hier muesstet Ihr mit Array Lists arbeiten
+		// Liste fuer die Auswahl der Programme 
 		ListView<String> list = new ListView<String>();
 				
 		ObservableList<String> items = FXCollections.observableArrayList ();
@@ -312,13 +312,15 @@ public class Start extends Application {
 		
 		
 		list.setItems(items);
-		list.setPrefWidth(200);
-		list.setPrefHeight(100);
+		list.setTranslateY(40);
+		list.setTranslateX(50);
+		list.setPrefWidth(300);
+		list.setPrefHeight(200);
 		
 		// Erstelle Reinladen Button damit die Ubungsaufgabe reingeladen wird
 		Button reinladen = new Button("Reinladen");
-		reinladen.setTranslateX(300);
-		reinladen.setTranslateY(20);
+		reinladen.setTranslateX(175);
+		reinladen.setTranslateY(325);
 		
 		// To Do Wenn der Knopf gedrueckt wurde
 		reinladen.setOnAction(new EventHandler <ActionEvent>() {
@@ -334,9 +336,21 @@ public class Start extends Application {
 					int babyValue = reinladenobjekt.GetBabystepTime();
 				}
 				isTracked = reinladenobjekt.GetTimetracking();
-				geladen = true;	
-				stage.close();
-				//Auf den Schirm mit den neuen Werten Aktualisieren.
+				
+				
+	// Bereite die Maske "Akzeptanztest" vor:			
+				Stage stage_akzeptanz = new Stage();
+				stage_akzeptanz.setTitle("Akzeptanztest");
+				try {
+					stage_akzeptanz.setScene(new Scene(akzept_test(stage_akzeptanz)));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				stage_ubung.close();
+				stage_akzeptanz.toFront();
+				//geladen = true;	
+				
+				//Auf den Schirm mit den neuen Werten aktualisieren.
 				ExtraStage.setScene(new Scene(createContent()));
 			}
 		});
@@ -345,7 +359,43 @@ public class Start extends Application {
 		root.getChildren().add(reinladen);
 		return root;
 	}
+	
 
+	public Parent akzept_test(Stage stage_akzeptanz) throws IOException{
+		Pane root_akzept = new Pane();
+		root_akzept.setPrefSize(600,600);
+		
+		Button checker = new Button("Check Programm");
+		checker.setTranslateX(225);
+		checker.setTranslateY(400);
+		
+		TextArea akzept_text = new TextArea();
+		akzept_text.setPrefSize(300,200);
+		akzept_text.setTranslateY(150);
+		akzept_text.setTranslateX(150);
+		
+		akzept_text.setText(klasseTest.getCode());
+		
+		// Hiermit wird der RED Button aktiviert
+		// @Youssef: eigentlich sollte hier nun ueberprueft werden, ob das Programm den Akzeptanztest erfuellt.
+		// Wenn nicht, wird der RED Button freigegeben
+		checker.setOnAction(new EventHandler <ActionEvent>() {
+			@Override
+			public void handle(ActionEvent ae){
+				geladen=true;
+			}
+			
+		});
+		
+		root_akzept.getChildren().addAll(akzept_text,checker);
+		
+		stage_akzeptanz.show();
+		stage_akzeptanz.toFront();
+		stage_akzeptanz.centerOnScreen();
+		return root_akzept;
+	}
+	
+	
     @Override
     public void start(Stage stage){
     	ExtraStage=stage;
