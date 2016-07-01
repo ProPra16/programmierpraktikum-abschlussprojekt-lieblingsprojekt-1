@@ -57,8 +57,12 @@ public class Start extends Application {
 	private Document document;
 	private NodeList tableNodeList;
 	private String aufgabe;
-	private Stage ExtraStage;	
-	
+	private Stage ExtraStage;
+	//fuer atdd brache ich die beide String Variabelen
+	private String textProgrammInhalt, gesammteTestCode;
+	//TextArea hier declarieren sodass ich in anderen Methoden daran zugreifen kann.
+	private TextArea textKonsole ;
+
     private Parent createContent(){
         Pane root = new Pane();
         root.setPrefSize(950, 550);
@@ -141,6 +145,38 @@ public class Start extends Application {
 		backtoRed.setTranslateX(500);
 		backtoRed.setTranslateY(325);
 		backtoRed.setDisable(true);
+		
+		//checkbox fuer aktzeptanzTest Checken beim erfolgereich entwicklungs des Programms
+		CheckBox aktzeptanzCheckbox=new CheckBox("CheckAktzepntanz");
+		aktzeptanzCheckbox.setTranslateX(500);
+		aktzeptanzCheckbox.setTranslateY(365);
+		aktzeptanzCheckbox.setDisable(true);
+		
+		aktzeptanzCheckbox.setOnAction(new EventHandler <ActionEvent>() {
+			public void handle(ActionEvent ae){
+				
+				klasseMain.setCode(textProgrammInhalt);
+				testErfolgreich = compiliere(gesammteTestCode, klasseTest.getName(), klasseMain.getCode(), klasseMain.getName(), textKonsole);
+				if(testErfolgreich){
+					textKonsole.setText("Gesammte Programm noch Nicht Erfolgreich, bitte Main weiter abändern");
+					
+					startTest.setDisable(false);
+					green.setDisable(true);				
+					backtoRed.setDisable(true);	
+					pruefeProg.setDisable(true);	
+					textTest.setDisable(false);
+					textProgramm.setText(backUpMain);
+					textProgramm.setDisable(true);
+					aktzeptanzCheckbox.setDisable(true);
+				}
+				else{
+					
+				}
+
+			
+			}
+			
+		});
 		
 		// Hier steht der Code fuer die Daten dass die Knoepfe gedreuckt wurden
 		// Button fuer Uebung reinlden, sodass ein enues Fenster startet mit den Uebungsaufgaben
@@ -234,6 +270,8 @@ public class Start extends Application {
 		pruefeProg.setOnAction(new EventHandler <ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae){
+				
+				textProgrammInhalt=textProgramm.getText();
 				klasseTest.setCode(textTest.getText());
 				klasseMain.setCode(textProgramm.getText());
 				testErfolgreich = compiliere(klasseTest.getCode(), klasseTest.getName(), klasseMain.getCode(), klasseMain.getName(), textKonsole);
@@ -241,14 +279,17 @@ public class Start extends Application {
 					textKonsole.setText("Nicht Erfolgreich, bitte Main weiter abändern");
 				}
 				else{
-					textKonsole.setText("Erfolgreich, du kannst die Test Methoden und Main Programm anpassen");
+					textKonsole.setText("Erfolgreich, du kannst die Test Methoden und Main Programm anpassen, Sowie den AkzeptanzTest Checken.");
 					red.setDisable(false);
 					green.setDisable(true);					
 					pruefeProg.setDisable(true);
 					backtoRed.setDisable(true);
 					textTest.setDisable(false);
 					textProgramm.setDisable(false);
+					//nur jetzt kann der AkzepetanzTest gecheckt werden
+					aktzeptanzCheckbox.setDisable(false);
 				}
+	
 			}
 		});
 		
@@ -262,6 +303,7 @@ public class Start extends Application {
 				textTest.setDisable(false);
 				textProgramm.setText(backUpMain);
 				textProgramm.setDisable(true);
+				aktzeptanzCheckbox.setDisable(true);
 				}
 		});
 		
@@ -279,6 +321,7 @@ public class Start extends Application {
 		root.getChildren().add(backtoRed);
 		root.getChildren().add(exit);
 		root.getChildren().add(speichern);
+		root.getChildren().add(aktzeptanzCheckbox);
 		
 		// Fuege Labels hinzu
 		root.getChildren().add(label);
@@ -331,12 +374,13 @@ public class Start extends Application {
 				//die beide String Variabelen kriegen ihren neue Werte :)
 				klasseMain = new JavaFile(reinladenobjekt.GetNameMain(), reinladenobjekt.GetNeueCodeMain());
 				klasseTest = new JavaFile(reinladenobjekt.GetNameTest(), reinladenobjekt.GetNeueCodeTest());
+				gesammteTestCode=klasseTest.getCode();
 				isBaby = reinladenobjekt.GetBabystep();
 				if(isBaby){
 					int babyValue = reinladenobjekt.GetBabystepTime();
 				}
 				isTracked = reinladenobjekt.GetTimetracking();
-				
+				ExtraStage.setScene(new Scene(createContent()));
 				
 	// Bereite die Maske "Akzeptanztest" vor:			
 				Stage stage_akzeptanz = new Stage();
@@ -346,12 +390,12 @@ public class Start extends Application {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				stage_ubung.close();
-				stage_akzeptanz.toFront();
-				//geladen = true;	
 				
 				//Auf den Schirm mit den neuen Werten aktualisieren.
-				ExtraStage.setScene(new Scene(createContent()));
+				//ExtraStage.setScene(new Scene(createContent()));
+				
+				stage_ubung.close();
+				stage_akzeptanz.toFront();
 			}
 		});
 		
@@ -374,15 +418,25 @@ public class Start extends Application {
 		akzept_text.setTranslateY(150);
 		akzept_text.setTranslateX(150);
 		
-		akzept_text.setText(klasseTest.getCode());
+		akzept_text.setText(gesammteTestCode);
 		
 		// Hiermit wird der RED Button aktiviert
-		// @Youssef: eigentlich sollte hier nun ueberprueft werden, ob das Programm den Akzeptanztest erfuellt.
+		// eigentlich sollte hier nun ueberprueft werden, ob das Programm den Akzeptanztest erfuellt.
 		// Wenn nicht, wird der RED Button freigegeben
 		checker.setOnAction(new EventHandler <ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae){
-				geladen=true;
+				
+				stage_akzeptanz.close();
+				if(compiliere(akzept_text.getText(), klasseTest.getName(), textProgrammInhalt, klasseMain.getName(), textKonsole)){
+					geladen=true;
+					textKonsole.setText("AkzeptanzTest noch nicht erfuellt, Programm muss bearbeitet werden.");
+					
+				}
+				else{
+					textKonsole.setText("Gesammte Programm in Ordnung.");
+				}
+
 			}
 			
 		});
