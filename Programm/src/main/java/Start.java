@@ -170,7 +170,7 @@ public class Start extends Application {
 					aktzeptanzCheckbox.setDisable(true);
 				}
 				else{
-					
+					textKonsole.setText("Gesammte Programm in Ordnung.");
 				}
 
 			
