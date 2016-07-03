@@ -1,8 +1,8 @@
-before_install: cd Programm
 
 language: java
 jdk: oraclejdk8
-before_script:
-- chmod a+x gradlew
+before_install:
+ - cd Programm
+ - chmod +x gradlew
 
 script: ./gradlew build
