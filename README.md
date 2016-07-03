@@ -11,7 +11,7 @@ Starte Eclipse und wähle File -> New -> Gradle Project. (Import Gradle Project)
 
 ### IntelliJ
 
-File -> New -> Project from existing sources auswählen und dort den Ordner five-buttons, der geclont wurde importieren.
+File -> New -> Project (bzw. Import Project) from existing sources auswählen und dort den Ordner five-buttons, der geclont wurde importieren.
 
 Danach Rechtsklick auf den Ordner res/ und Mark directory as -> Resources Root wählen.
 
@@ -26,4 +26,5 @@ Danach Rechtsklick auf den Ordner res/ und Mark directory as -> Resources Root w
 26.06.2016 - Erstellung der Aufgaben.xml Formate, damit wir auf dem Aufgabenblatt die Übungsgruppenleiter die Aufgaben in xml Format erstellen können<br />
 26.06.2016 - Hinzunhme der Bibliotheken für den Java Compiler und den JUnit Testrunner dazu wurde eine neue Methode erstellt die den Code testet<br />
 27.06.2016 - Einbinden der virtual-kata-lib in eclipse: Rechtsklick auf Projekt -> Build Path -> configure Bulid Path und dann unter add external Jars, die jar Datei hinzufügen<br />
-29.06.2016 - Einbinden der virtual-kata-lib, sodass man nur noch ein Grandle Projekt erzeugen, bzw. importieren muss
+29.06.2016 - Einbinden der virtual-kata-lib, sodass man nur noch ein Grandle Projekt erzeugen, bzw. importieren muss<br />
+03.07.2016 - Richtige erstellung der .travis.yml Datei mit Output: "Done. Your build exited with 0."
