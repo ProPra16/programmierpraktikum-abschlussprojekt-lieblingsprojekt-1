@@ -150,7 +150,7 @@ public class Start extends Application {
 				klasseMain.setCode(textProgrammInhalt);
 				testErfolgreich = compiliere(gesammteTestCode, klasseTest.getName(), klasseMain.getCode(), klasseMain.getName(), textKonsole);
 				if(testErfolgreich){
-					textKonsole.setText("Gesammte Programm noch Nicht Erfolgreich, bitte Main weiter abändern");
+					textKonsole.setText("Gesammte Programm noch Nicht Erfolgreich, bitte Main weiter abï¿½ndern");
 					
 					startTest.setDisable(false);
 					green.setDisable(true);				
@@ -268,7 +268,7 @@ public class Start extends Application {
 				klasseMain.setCode(textProgramm.getText());
 				testErfolgreich = compiliere(klasseTest.getCode(), klasseTest.getName(), klasseMain.getCode(), klasseMain.getName(), textKonsole);
 				if(testErfolgreich){
-					textKonsole.setText("Nicht Erfolgreich, bitte Main weiter abändern");
+					textKonsole.setText("Nicht Erfolgreich, bitte Main weiter abï¿½ndern");
 				}
 				else{
 					textKonsole.setText("Erfolgreich, du kannst die Test Methoden und Main Programm anpassen, Sowie den AkzeptanzTest Checken.");
@@ -423,26 +423,25 @@ public class Start extends Application {
 				
 				stage_akzeptanz.close();
 				System.out.println("1");
-				
-				if(compiliere(akzept_text.getText(), klasseTest.getName(), textProgrammInhalt, klasseMain.getName(), textKonsole)){
+		/*		if(compiliere(akzept_text.getText(), klasseTest.getName(), textProgrammInhalt, klasseMain.getName(), textKonsole)){
 					geladen=true;
 					textKonsole.setText("AkzeptanzTest noch nicht erfuellt, Programm muss bearbeitet werden.");
 					
 				}
 				else{
 					textKonsole.setText("Gesammte Programm in Ordnung.");
-				}
+				} */
 
-			}
+			} 
 			
-		});
+		}); 
 		
 		root_akzept.getChildren().addAll(akzept_text,checker);
 		
 		stage_akzeptanz.show();
 		stage_akzeptanz.toFront();
 		stage_akzeptanz.centerOnScreen();
-		return root_akzept;
+		return root_akzept; 
 	}
 	
 	
