@@ -1,3 +1,4 @@
 before_install: cd Programm
+chmod +x gradlew
 language: java
 jdk: oraclejdk8
