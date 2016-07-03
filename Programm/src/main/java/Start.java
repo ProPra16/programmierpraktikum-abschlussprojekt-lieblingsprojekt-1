@@ -1,44 +1,36 @@
+import java.io.File;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+
 import javafx.application.Application;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-import jdk.nashorn.internal.codegen.CompilationException;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 // Imports fuer die Bibilothek vom Java Compiler
 import vk.core.api.CompilationUnit;
 import vk.core.api.CompilerFactory;
 import vk.core.api.JavaStringCompiler;
 import vk.core.api.TestFailure;
 import vk.core.api.TestResult;
-import static org.junit.Assert.*;
-
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.junit.Test;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 
 public class Start extends Application {
@@ -48,7 +40,7 @@ public class Start extends Application {
 	private Timer timer;
 	private boolean geladen = false;
 	private boolean testErfolgreich = false;
-	private JavaFile klasseTest, klasseMain;
+	private JavaFile klasseTest, klasseMain, klasseAkzeptanzTest;
 	private boolean isBaby, isTracked;
 	private String backUpMain;
 	
@@ -223,7 +215,7 @@ public class Start extends Application {
 				pruefeProg.setDisable(false);
 				backtoRed.setDisable(false);
 				textProgramm.setDisable(false);
-				textTest.setText(klasseMain.getCode());
+				textTest.setText(klasseTest.getCode());
 				textTest.setDisable(true);			
 			}
 		});
@@ -271,7 +263,7 @@ public class Start extends Application {
 			@Override
 			public void handle(ActionEvent ae){
 				
-				textProgrammInhalt=textProgramm.getText();
+				textProgrammInhalt = textProgramm.getText();
 				klasseTest.setCode(textTest.getText());
 				klasseMain.setCode(textProgramm.getText());
 				testErfolgreich = compiliere(klasseTest.getCode(), klasseTest.getName(), klasseMain.getCode(), klasseMain.getName(), textKonsole);
@@ -374,6 +366,8 @@ public class Start extends Application {
 				//die beide String Variabelen kriegen ihren neue Werte :)
 				klasseMain = new JavaFile(reinladenobjekt.GetNameMain(), reinladenobjekt.GetNeueCodeMain());
 				klasseTest = new JavaFile(reinladenobjekt.GetNameTest(), reinladenobjekt.GetNeueCodeTest());
+				// Ist zu Anfang noch identisch mit normaler Test
+				klasseAkzeptanzTest = new JavaFile(reinladenobjekt.GetNameTest(), reinladenobjekt.GetNeueCodeTest());
 				gesammteTestCode=klasseTest.getCode();
 				isBaby = reinladenobjekt.GetBabystep();
 				if(isBaby){
@@ -428,6 +422,8 @@ public class Start extends Application {
 			public void handle(ActionEvent ae){
 				
 				stage_akzeptanz.close();
+				System.out.println("1");
+				
 				if(compiliere(akzept_text.getText(), klasseTest.getName(), textProgrammInhalt, klasseMain.getName(), textKonsole)){
 					geladen=true;
 					textKonsole.setText("AkzeptanzTest noch nicht erfuellt, Programm muss bearbeitet werden.");
