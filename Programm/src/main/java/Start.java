@@ -40,7 +40,7 @@ public class Start extends Application {
 	private Timer timer;
 	private boolean geladen = false;
 	private boolean testErfolgreich = false;
-	private JavaFile klasseTest, klasseMain, klasseAkzeptanzTest;
+	private JavaFile klasseTest, klasseMain, klasseAkzeptanzTest, KlasseMainFuerAkzeptanztest;
 	private boolean isBaby, isTracked;
 	private String backUpMain;
 	
@@ -50,10 +50,8 @@ public class Start extends Application {
 	private NodeList tableNodeList;
 	private String aufgabe;
 	private Stage ExtraStage;
-	//fuer atdd brache ich die beide String Variabelen
-	private String textProgrammInhalt, gesammteTestCode;
 	//TextArea hier declarieren sodass ich in anderen Methoden daran zugreifen kann.
-	private TextArea textKonsole ;
+	private TextArea textKonsole, textProgramm;
 
     private Parent createContent(){
         Pane root = new Pane();
@@ -100,7 +98,7 @@ public class Start extends Application {
 		speichern.setTranslateY(500);
 		
 		// Textfeld fuer die Class.java Datei
-		TextArea textProgramm = new TextArea("");
+		textProgramm = new TextArea("");
 		textProgramm.setPrefWidth(300);
 		textProgramm.setPrefHeight(200);
 		textProgramm.setTranslateX(200);
@@ -108,7 +106,7 @@ public class Start extends Application {
 		textProgramm.setDisable(true);		
 		
 		// Textfeld fuer die Konsole
-		TextArea textKonsole = new TextArea("Konsole");
+		textKonsole = new TextArea("Konsole");
 		textKonsole.setPrefWidth(300);
 		textKonsole.setPrefHeight(200);
 		textKonsole.setTranslateX(625);
@@ -147,22 +145,35 @@ public class Start extends Application {
 		aktzeptanzCheckbox.setOnAction(new EventHandler <ActionEvent>() {
 			public void handle(ActionEvent ae){
 				
-				klasseMain.setCode(textProgrammInhalt);
-				testErfolgreich = compiliere(gesammteTestCode, klasseTest.getName(), klasseMain.getCode(), klasseMain.getName(), textKonsole);
-				if(testErfolgreich){
-					textKonsole.setText("Gesammte Programm noch Nicht Erfolgreich, bitte Main weiter ab�ndern");
+				KlasseMainFuerAkzeptanztest.setCode(textProgramm.getText());
+				
+				if(compiliere(klasseAkzeptanzTest.getCode(), klasseAkzeptanzTest.getName(), KlasseMainFuerAkzeptanztest.getCode(), KlasseMainFuerAkzeptanztest.getName(), textKonsole)){
+					textKonsole.setText("Gesammte Programm noch Nicht Erfolgreich, bitte Tests/Main weiter abaendern");
 					
+					red.setDisable(false);
 					startTest.setDisable(false);
+					textTest.setDisable(false);
 					green.setDisable(true);				
 					backtoRed.setDisable(true);	
 					pruefeProg.setDisable(true);	
-					textTest.setDisable(false);
-					textProgramm.setText(backUpMain);
 					textProgramm.setDisable(true);
+					aktzeptanzCheckbox.setSelected(false);
 					aktzeptanzCheckbox.setDisable(true);
+					
 				}
 				else{
-					textKonsole.setText("Gesammte Programm in Ordnung.");
+					//Beim erfolgereichen Programm, kann man Speichern, und auch eine neue Ubung reinladen
+					textKonsole.setText("Gesammte Programm in Ordnung, bitte Speichern oder eine neue Ubung reinladen.");
+					
+					startTest.setDisable(true);
+					green.setDisable(true);
+					red.setDisable(true);
+					backtoRed.setDisable(true);	
+					pruefeProg.setDisable(true);	
+					textTest.setDisable(true);
+					textProgramm.setDisable(true);
+					aktzeptanzCheckbox.setSelected(false);
+					aktzeptanzCheckbox.setDisable(true);
 				}
 
 			
@@ -262,13 +273,13 @@ public class Start extends Application {
 		pruefeProg.setOnAction(new EventHandler <ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae){
-				
-				textProgrammInhalt = textProgramm.getText();
+
 				klasseTest.setCode(textTest.getText());
 				klasseMain.setCode(textProgramm.getText());
+				
 				testErfolgreich = compiliere(klasseTest.getCode(), klasseTest.getName(), klasseMain.getCode(), klasseMain.getName(), textKonsole);
 				if(testErfolgreich){
-					textKonsole.setText("Nicht Erfolgreich, bitte Main weiter ab�ndern");
+					textKonsole.setText("Nicht Erfolgreich, bitte Main weiter abï¿½ndern");
 				}
 				else{
 					textKonsole.setText("Erfolgreich, du kannst die Test Methoden und Main Programm anpassen, Sowie den AkzeptanzTest Checken.");
@@ -368,7 +379,7 @@ public class Start extends Application {
 				klasseTest = new JavaFile(reinladenobjekt.GetNameTest(), reinladenobjekt.GetNeueCodeTest());
 				// Ist zu Anfang noch identisch mit normaler Test
 				klasseAkzeptanzTest = new JavaFile(reinladenobjekt.GetNameTest(), reinladenobjekt.GetNeueCodeTest());
-				gesammteTestCode=klasseTest.getCode();
+				
 				isBaby = reinladenobjekt.GetBabystep();
 				if(isBaby){
 					int babyValue = reinladenobjekt.GetBabystepTime();
@@ -412,7 +423,7 @@ public class Start extends Application {
 		akzept_text.setTranslateY(150);
 		akzept_text.setTranslateX(150);
 		
-		akzept_text.setText(gesammteTestCode);
+		akzept_text.setText(klasseTest.getCode());
 		
 		// Hiermit wird der RED Button aktiviert
 		// eigentlich sollte hier nun ueberprueft werden, ob das Programm den Akzeptanztest erfuellt.
@@ -422,15 +433,16 @@ public class Start extends Application {
 			public void handle(ActionEvent ae){
 				
 				stage_akzeptanz.close();
-				System.out.println("1");
-		/*		if(compiliere(akzept_text.getText(), klasseTest.getName(), textProgrammInhalt, klasseMain.getName(), textKonsole)){
+				KlasseMainFuerAkzeptanztest=new JavaFile(klasseMain.getName(), textProgramm.getText());
+
+				if(compiliere(klasseAkzeptanzTest.getCode(), klasseAkzeptanzTest.getName(), KlasseMainFuerAkzeptanztest.getCode(), KlasseMainFuerAkzeptanztest.getName(), textKonsole)){
 					geladen=true;
 					textKonsole.setText("AkzeptanzTest noch nicht erfuellt, Programm muss bearbeitet werden.");
 					
 				}
 				else{
 					textKonsole.setText("Gesammte Programm in Ordnung.");
-				} */
+				} 
 
 			} 
 			
