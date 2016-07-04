@@ -35,6 +35,8 @@ import vk.core.api.TestResult;
 
 public class Start extends Application {
 
+	//akzept test oben ins fenster 
+	
 	private Scene scene;
 	private Button red;
 	private Timer timer;
@@ -56,7 +58,7 @@ public class Start extends Application {
 
 	private Parent createContent() {
 		Pane root = new Pane();
-		root.setPrefSize(950, 550);
+		root.setPrefSize(950, 700);
 
 		timer = new Timer();
 		// Button zum starten damit der Uebungskatalog in einem neuen Fenster
@@ -64,6 +66,12 @@ public class Start extends Application {
 		Button ubung = new Button("Uebung reinladen");
 		ubung.setTranslateX(20);
 		ubung.setTranslateY(20);
+		
+	/*	Button CA = new Button("Check Akz");
+		CA.setTranslateX(40);
+		CA.setTranslateY(500);
+		*/
+
 
 		// Button RED zum Starten des RED Werkzeugs
 		red = new Button("RED");
@@ -245,6 +253,14 @@ public class Start extends Application {
 				System.exit(0);
 			}
 		});
+		
+		
+	/*	CA.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent ae) {
+				System.exit(0);
+			}
+		}); */
 
 		// Speichern speichert das Programm
 		speichern.setOnAction(new EventHandler<ActionEvent>() {
