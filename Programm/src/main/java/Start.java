@@ -239,13 +239,12 @@ public class Start extends Application {
 			@Override
 			public void handle(ActionEvent ae) {
 				if (geladen == true) {
-					timer = new Timer();
 					timer.schedule(new TimerTask() {
 						@Override
 						public void run() {
 							textTest.setText("");
 							timer.cancel();
-							schrittZurueck(1);
+							//schrittZurueck(1);
 						}
 					}, babyValue*1000);
 					textTest.setText(klasseTest.getCode());
@@ -268,7 +267,7 @@ public class Start extends Application {
 						public void run() {
 							textProgramm.setText("");
 							timer.cancel();
-							schrittZurueck(0);
+							//schrittZurueck(0);
 						}
 					}, babyValue*1000);
 				pruefeProg.setDisable(false);
@@ -391,10 +390,9 @@ public class Start extends Application {
 		root.getChildren().add(AkzTest);
 		return root;
 	}
-	
+	/* Noch in Arbeit
 	private void schrittZurueck(int pruefe){
 		if(pruefe == 0){
-			timer = new Timer();
 			textTest.setText(klasseTest.getCode());
 			textTest.setDisable(false);
 			textProgramm.setDisable(true);
@@ -418,7 +416,7 @@ public class Start extends Application {
 			textProgramm.setDisable(false);
 		}
 		
-	}
+	}*/
 
 	// code fuer das Fenster Uebugnsaufgaben: uebernimmt die stage (Fenster)
 	// damit beim Knopf druecken reinladen dies automatisch geschlossen wird
