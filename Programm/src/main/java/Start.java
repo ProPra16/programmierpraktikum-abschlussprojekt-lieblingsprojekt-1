@@ -469,7 +469,7 @@ public class Start extends Application {
 
 				isBaby = reinladenobjekt.GetBabystep();
 				if (isBaby) {
-					int babyValue = reinladenobjekt.GetBabystepTime();
+					babyValue = reinladenobjekt.GetBabystepTime();
 				}
 				isTracked = reinladenobjekt.GetTimetracking();
 				ExtraStage.setScene(new Scene(createContent()));
