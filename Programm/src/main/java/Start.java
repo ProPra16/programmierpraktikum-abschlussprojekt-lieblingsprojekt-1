@@ -406,7 +406,7 @@ public class Start extends Application {
 					textTest.setText("");
 					schrittZurueck(1);
 				}
-			}, babyValue);
+			}, babyValue*1000);
 		}
 		if(pruefe == 1){
 			red.setDisable(false);
