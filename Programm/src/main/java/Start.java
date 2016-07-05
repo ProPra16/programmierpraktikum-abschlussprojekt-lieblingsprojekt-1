@@ -45,6 +45,7 @@ public class Start extends Application {
 	private JavaFile klasseTest, klasseMain, klasseAkzeptanzTest, KlasseMainFuerAkzeptanztest;
 	private boolean isBaby, isTracked;
 	private String backUpMain;
+	private int babyValue;
 
 	// fuer das Lesen der XML Datei:
 	private DocumentBuilderFactory dbfactory;
@@ -239,8 +240,9 @@ public class Start extends Application {
 						public void run() {
 							textTest.setText("");
 							timer.cancel();
+							schrittZurueck(1);
 						}
-					}, 180000);
+					}, babyValue);
 					textTest.setText(klasseTest.getCode());
 					textTest.setDisable(false);
 					textProgramm.setDisable(true);
@@ -256,6 +258,14 @@ public class Start extends Application {
 		green.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae) {
+				timer.schedule(new TimerTask() {
+						@Override
+						public void run() {
+							textProgramm.setText("");
+							timer.cancel();
+							schrittZurueck(0);
+						}
+					}, babyValue);
 				pruefeProg.setDisable(false);
 				backtoRed.setDisable(false);
 				textProgramm.setDisable(false);
@@ -374,6 +384,35 @@ public class Start extends Application {
 		root.getChildren().add(Akzeptanztest);
 		root.getChildren().add(AkzTest);
 		return root;
+	}
+	
+	private void schrittZurueck(int pruefe){
+		if(int == 0){
+			textTest.setText(klasseTest.getCode());
+			textTest.setDisable(false);
+			textProgramm.setDisable(true);
+			textProgramm.setText(klasseMain.getCode());
+			startTest.setDisable(false);
+			backUpMain = textProgramm.getText();
+			timer = new Timer();
+			timer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					textTest.setText("");
+					schrittZurueck(1);
+				}
+			}, babyValue);
+		}
+		if(int == 1){
+			timer = new Timer();
+			red.setDisable(false);
+			green.setDisable(true);
+			pruefeProg.setDisable(true);
+			backtoRed.setDisable(true);
+			textTest.setDisable(false);
+			textProgramm.setDisable(false);
+		}
+		
 	}
 
 	// code fuer das Fenster Uebugnsaufgaben: uebernimmt die stage (Fenster)
