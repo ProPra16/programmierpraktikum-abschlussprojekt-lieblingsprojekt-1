@@ -239,12 +239,13 @@ public class Start extends Application {
 			@Override
 			public void handle(ActionEvent ae) {
 				if (geladen == true) {
+					timer = new Timer();
 					timer.schedule(new TimerTask() {
 						@Override
 						public void run() {
 							textTest.setText("");
-							schrittZurueck(1);
 							timer.cancel();
+							schrittZurueck(1);
 						}
 					}, babyValue*1000);
 					textTest.setText(klasseTest.getCode());
@@ -393,6 +394,7 @@ public class Start extends Application {
 	
 	private void schrittZurueck(int pruefe){
 		if(pruefe == 0){
+			timer = new Timer();
 			textTest.setText(klasseTest.getCode());
 			textTest.setDisable(false);
 			textProgramm.setDisable(true);
