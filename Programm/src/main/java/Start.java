@@ -43,7 +43,7 @@ public class Start extends Application {
 	private Button pruefeProg;
 	private Button backtoRed;
 	private Button startTest;
-	private Timer timer;
+	private Timer timer = new Timer();
 	private boolean geladen = false;
 	private boolean testErfolgreich = false;
 	private JavaFile klasseTest, klasseMain, klasseAkzeptanzTest, KlasseMainFuerAkzeptanztest;
@@ -66,7 +66,6 @@ public class Start extends Application {
 		Pane root = new Pane();
 		root.setPrefSize(1200, 700);
 
-		timer = new Timer();
 		// Button zum starten damit der Uebungskatalog in einem neuen Fenster
 		// angezeigt wird
 		Button ubung = new Button("1. Uebung reinladen");
