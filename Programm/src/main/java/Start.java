@@ -58,101 +58,119 @@ public class Start extends Application {
 
 	private Parent createContent() {
 		Pane root = new Pane();
-		root.setPrefSize(950, 700);
+		root.setPrefSize(1200, 700);
 
 		timer = new Timer();
 		// Button zum starten damit der Uebungskatalog in einem neuen Fenster
 		// angezeigt wird
-		Button ubung = new Button("Uebung reinladen");
+		Button ubung = new Button("1. Uebung reinladen");
+		ubung.setStyle("-fx-font-size: 11pt;");
+		ubung.setStyle("-fx-text-fill: BLUE;");
 		ubung.setTranslateX(20);
 		ubung.setTranslateY(20);
 		
-	/*	Button CA = new Button("Check Akz");
-		CA.setTranslateX(40);
-		CA.setTranslateY(500);
-		*/
-
+		Button CA = new Button("Check Akz");
+		CA.setTranslateX(1000);
+		CA.setTranslateY(250);
+		
+		Label Akzeptanztest = new Label("Akzeptanztest:");
+		Akzeptanztest.setTranslateX(700);
+		Akzeptanztest.setTranslateY(30);
+		Akzeptanztest.setStyle("-fx-text-fill: BLUE;");
+		
+		
+		TextArea AkzTest = new TextArea("");
+		AkzTest.setPrefWidth(300);
+		AkzTest.setPrefHeight(200);
+		AkzTest.setTranslateX(800);
+		AkzTest.setTranslateY(30);
+		//AkzTest.setDisable(true);
 
 		// Button RED zum Starten des RED Werkzeugs
 		red = new Button("RED");
 		red.setStyle("-fx-background-color: LIGHTPINK;");
 		red.setTranslateX(20);
-		red.setTranslateY(80);
+		red.setTranslateY(190);
 
 		// Textfeld fuer die Test.java Datei
 		TextArea textTest = new TextArea("");
 		textTest.setPrefWidth(300);
 		textTest.setPrefHeight(200);
 		textTest.setTranslateX(200);
-		textTest.setTranslateY(85);
+		textTest.setTranslateY(190);
 		textTest.setDisable(true);
 
 		// Beschreibungsfeld fuer den RED Button
 		Label label = new Label("Beschreibung");
-		label.setTranslateX(85);
-		label.setTranslateY(85);
+		label.setTranslateX(95);
+		label.setTranslateY(190);
 
 		// Button GREEN zum Starten des GREEN Werkzeugs
 		Button green = new Button("GREEN");
 		green.setStyle("-fx-background-color: LIGHTGREEN;");
 		green.setTranslateX(20);
-		green.setTranslateY(290);
+		green.setTranslateY(425);
 		green.setDisable(true);
 
 		// Button Exit zum Schliessen des Programms
 		Button exit = new Button("Exit");
-		exit.setTranslateX(500);
-		exit.setTranslateY(500);
+		exit.setStyle("-fx-text-fill: RED;");
+		exit.setTranslateX(1000);
+		exit.setTranslateY(650);
 
 		// Button Speichern zum Speichern des Programms
 		Button speichern = new Button("Dateien speichern");
-		speichern.setTranslateX(300);
-		speichern.setTranslateY(500);
+		speichern.setStyle("-fx-text-fill: GREEN;");
+		speichern.setTranslateX(850);
+		speichern.setTranslateY(650);
 
 		// Textfeld fuer die Class.java Datei
 		textProgramm = new TextArea("");
 		textProgramm.setPrefWidth(300);
 		textProgramm.setPrefHeight(200);
 		textProgramm.setTranslateX(200);
-		textProgramm.setTranslateY(290);
+		textProgramm.setTranslateY(425);
 		textProgramm.setDisable(true);
 
 		// Textfeld fuer die Konsole
-		textKonsole = new TextArea("Konsole");
+		textKonsole = new TextArea("Konsolenausgabe");
 		textKonsole.setPrefWidth(300);
 		textKonsole.setPrefHeight(200);
-		textKonsole.setTranslateX(625);
-		textKonsole.setTranslateY(85);
+		textKonsole.setTranslateX(800);
+		textKonsole.setTranslateY(425);
 		textKonsole.setEditable(false);
 
 		// Beschreibungsfeld fuer den GREEN Button
 		Label label1 = new Label("Beschreibung");
-		label1.setTranslateX(85);
-		label1.setTranslateY(295);
+		label1.setTranslateX(95);
+		label1.setTranslateY(425);
 
 		// Button Starte Test um die Test.java Datei zu kompilieren und starten
-		Button startTest = new Button("Starte Test");
-		startTest.setTranslateX(500);
-		startTest.setTranslateY(85);
+		Button startTest = new Button("2. Starte Test");
+		startTest.setStyle("-fx-text-fill: BLUE;");
+		startTest.setTranslateX(525);
+		startTest.setTranslateY(215);
 		startTest.setDisable(true);
 
 		// Button Pruefe Programm der Prueft ob der Test erfolgreich ist
 		Button pruefeProg = new Button("Pruefe Programm");
-		pruefeProg.setTranslateX(500);
-		pruefeProg.setTranslateY(290);
+		
+		pruefeProg.setTranslateX(525);
+		pruefeProg.setTranslateY(450);
 		pruefeProg.setDisable(true);
 
 		// Button Wechsele zu RED der wieder zum RED Schritt zurueckgeht
 		Button backtoRed = new Button("Wechsle zu RED");
-		backtoRed.setTranslateX(500);
-		backtoRed.setTranslateY(325);
+		backtoRed.setStyle("-fx-text-fill: RED;");
+		backtoRed.setTranslateX(525);
+		backtoRed.setTranslateY(500);
 		backtoRed.setDisable(true);
 
 		// checkbox fuer aktzeptanzTest Checken beim erfolgereich entwicklungs
 		// des Programms
 		CheckBox aktzeptanzCheckbox = new CheckBox("Check Akzeptanz");
-		aktzeptanzCheckbox.setTranslateX(500);
-		aktzeptanzCheckbox.setTranslateY(365);
+		aktzeptanzCheckbox.setTranslateX(525);
+		aktzeptanzCheckbox.setTranslateY(550);
 		aktzeptanzCheckbox.setDisable(true);
 
 		aktzeptanzCheckbox.setOnAction(new EventHandler<ActionEvent>() {
@@ -352,7 +370,9 @@ public class Start extends Application {
 		// Fuege Labels hinzu
 		root.getChildren().add(label);
 		root.getChildren().add(label1);
-
+		root.getChildren().add(CA);
+		root.getChildren().add(Akzeptanztest);
+		root.getChildren().add(AkzTest);
 		return root;
 	}
 
