@@ -46,6 +46,7 @@ public class Start extends Application {
 	private boolean isBaby, isTracked;
 	private String backUpMain;
 	private int babyValue;
+	private TextArea textTest,textProgramm;
 
 	// fuer das Lesen der XML Datei:
 	private DocumentBuilderFactory dbfactory;
@@ -94,7 +95,7 @@ public class Start extends Application {
 		red.setTranslateY(190);
 
 		// Textfeld fuer die Test.java Datei
-		TextArea textTest = new TextArea("");
+		textTest = new TextArea("");
 		textTest.setPrefWidth(300);
 		textTest.setPrefHeight(200);
 		textTest.setTranslateX(200);
