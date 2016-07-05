@@ -243,7 +243,7 @@ public class Start extends Application {
 						@Override
 						public void run() {
 							textTest.setText("");
-							timer.cancel();
+							//timer.cancel();
 							//schrittZurueck(1);
 						}
 					}, babyValue*1000);
@@ -266,7 +266,7 @@ public class Start extends Application {
 						@Override
 						public void run() {
 							textProgramm.setText("");
-							timer.cancel();
+							//timer.cancel();
 							//schrittZurueck(0);
 						}
 					}, babyValue*1000);
