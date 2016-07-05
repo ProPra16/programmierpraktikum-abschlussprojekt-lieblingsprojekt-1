@@ -247,7 +247,7 @@ public class Start extends Application {
 							schrittZurueck(1);
 							timer.cancel();
 						}
-					}, babyValue);
+					}, babyValue*1000);
 					textTest.setText(klasseTest.getCode());
 					textTest.setDisable(false);
 					textProgramm.setDisable(true);
@@ -270,7 +270,7 @@ public class Start extends Application {
 							timer.cancel();
 							schrittZurueck(0);
 						}
-					}, babyValue);
+					}, babyValue*1000);
 				pruefeProg.setDisable(false);
 				backtoRed.setDisable(false);
 				textProgramm.setDisable(false);
@@ -283,6 +283,7 @@ public class Start extends Application {
 		exit.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae) {
+				timer.cancel();
 				System.exit(0);
 			}
 		});
@@ -408,7 +409,6 @@ public class Start extends Application {
 			}, babyValue);
 		}
 		if(pruefe == 1){
-			timer = new Timer();
 			red.setDisable(false);
 			green.setDisable(true);
 			pruefeProg.setDisable(true);
