@@ -50,7 +50,7 @@ public class Start extends Application {
 	private boolean isBaby, isTracked;
 	private String backUpMain;
 	private int babyValue;
-	private TextArea textTest,textProgramm;
+	private TextArea textTest;
 
 	// fuer das Lesen der XML Datei:
 	private DocumentBuilderFactory dbfactory;
