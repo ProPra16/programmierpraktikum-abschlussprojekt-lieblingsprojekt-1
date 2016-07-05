@@ -244,8 +244,8 @@ public class Start extends Application {
 						@Override
 						public void run() {
 							textTest.setText("");
-							timer.cancel();
 							schrittZurueck(1);
+							timer.cancel();
 						}
 					}, babyValue);
 					textTest.setText(klasseTest.getCode());
@@ -399,7 +399,6 @@ public class Start extends Application {
 			textProgramm.setText(klasseMain.getCode());
 			startTest.setDisable(false);
 			backUpMain = textProgramm.getText();
-			timer = new Timer();
 			timer.schedule(new TimerTask() {
 				@Override
 				public void run() {
