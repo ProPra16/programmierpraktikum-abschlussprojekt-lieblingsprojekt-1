@@ -39,6 +39,10 @@ public class Start extends Application {
 	
 	private Scene scene;
 	private Button red;
+	private Button green;
+	private Button pruefeProg;
+	private Button backtoRed;
+	private Button startTest;
 	private Timer timer;
 	private boolean geladen = false;
 	private boolean testErfolgreich = false;
@@ -388,7 +392,7 @@ public class Start extends Application {
 	}
 	
 	private void schrittZurueck(int pruefe){
-		if(int == 0){
+		if(pruefe == 0){
 			textTest.setText(klasseTest.getCode());
 			textTest.setDisable(false);
 			textProgramm.setDisable(true);
@@ -404,7 +408,7 @@ public class Start extends Application {
 				}
 			}, babyValue);
 		}
-		if(int == 1){
+		if(pruefe == 1){
 			timer = new Timer();
 			red.setDisable(false);
 			green.setDisable(true);
