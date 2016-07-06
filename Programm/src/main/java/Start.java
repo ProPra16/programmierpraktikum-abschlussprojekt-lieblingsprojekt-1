@@ -35,8 +35,8 @@ import vk.core.api.TestResult;
 
 public class Start extends Application {
 
-	//akzept test oben ins fenster 
-	
+	// akzept test oben ins fenster
+
 	private Scene scene;
 	private Button red;
 	private Button green;
@@ -62,6 +62,9 @@ public class Start extends Application {
 	// kann.
 	private TextArea textKonsole, textProgramm;
 
+	/**
+	 * @return
+	 */
 	private Parent createContent() {
 		Pane root = new Pane();
 		root.setPrefSize(1200, 700);
@@ -69,33 +72,39 @@ public class Start extends Application {
 		// Button zum starten damit der Uebungskatalog in einem neuen Fenster
 		// angezeigt wird
 		Button ubung = new Button("1. Uebung reinladen");
-		ubung.setStyle("-fx-font-size: 11pt;");
 		ubung.setStyle("-fx-text-fill: BLUE;");
 		ubung.setTranslateX(20);
 		ubung.setTranslateY(20);
-		
-		Button CA = new Button("Check Akz");
+
+		Button CA = new Button("2. Lade Akzeptanztest\n(nur fuer Testzwecke)");
 		CA.setTranslateX(1000);
 		CA.setTranslateY(250);
-		
+
 		Label Akzeptanztest = new Label("Akzeptanztest:");
 		Akzeptanztest.setTranslateX(700);
 		Akzeptanztest.setTranslateY(30);
 		Akzeptanztest.setStyle("-fx-text-fill: BLUE;");
-		
-		
+
 		TextArea AkzTest = new TextArea("");
 		AkzTest.setPrefWidth(300);
 		AkzTest.setPrefHeight(200);
 		AkzTest.setTranslateX(800);
 		AkzTest.setTranslateY(30);
-		//AkzTest.setDisable(true);
+		AkzTest.setEditable(true);
+		// AkzTest.setDisable(true);
+		
+		
+		Button AkzepTest = new Button("3. Akzeptanztest starten\num RED freizugeben");
+		AkzepTest.setTranslateX(800);
+		AkzepTest.setTranslateY(250);
+		
 
 		// Button RED zum Starten des RED Werkzeugs
 		red = new Button("RED");
 		red.setStyle("-fx-background-color: LIGHTPINK;");
 		red.setTranslateX(20);
 		red.setTranslateY(190);
+		red.setDisable(true);
 
 		// Textfeld fuer die Test.java Datei
 		textTest = new TextArea("");
@@ -129,6 +138,8 @@ public class Start extends Application {
 		speichern.setTranslateX(850);
 		speichern.setTranslateY(650);
 
+	
+		
 		// Textfeld fuer die Class.java Datei
 		textProgramm = new TextArea("");
 		textProgramm.setPrefWidth(300);
@@ -151,7 +162,7 @@ public class Start extends Application {
 		label1.setTranslateY(425);
 
 		// Button Starte Test um die Test.java Datei zu kompilieren und starten
-		Button startTest = new Button("2. Starte Test");
+		Button startTest = new Button("Starte Test");
 		startTest.setStyle("-fx-text-fill: BLUE;");
 		startTest.setTranslateX(525);
 		startTest.setTranslateY(215);
@@ -159,7 +170,7 @@ public class Start extends Application {
 
 		// Button Pruefe Programm der Prueft ob der Test erfolgreich ist
 		Button pruefeProg = new Button("Pruefe Programm");
-		
+
 		pruefeProg.setTranslateX(525);
 		pruefeProg.setTranslateY(450);
 		pruefeProg.setDisable(true);
@@ -173,7 +184,8 @@ public class Start extends Application {
 
 		// checkbox fuer aktzeptanzTest Checken beim erfolgereich entwicklungs
 		// des Programms
-		CheckBox aktzeptanzCheckbox = new CheckBox("Check Akzeptanz");
+
+/*		CheckBox aktzeptanzCheckbox = new CheckBox("Check Akzeptanz");
 		aktzeptanzCheckbox.setTranslateX(525);
 		aktzeptanzCheckbox.setTranslateY(550);
 		aktzeptanzCheckbox.setDisable(true);
@@ -197,8 +209,8 @@ public class Start extends Application {
 					aktzeptanzCheckbox.setSelected(false);
 					aktzeptanzCheckbox.setDisable(true);
 
-				} else {
-					// Beim erfolgereichen Programm, kann man Speichern, und
+				} else { // Beim erfolgereichen Programm, kann man Speichern,
+							// und //
 					// auch eine neue Ubung reinladen
 					textKonsole.setText("Programm in Ordnung!\nBitte speichern oder eine neue Ubung reinladen.");
 
@@ -215,7 +227,7 @@ public class Start extends Application {
 
 			}
 
-		});
+		}); */
 
 		// Hier steht der Code fuer die Daten dass die Knoepfe gedreuckt wurden
 		// Button fuer Uebung reinlden, sodass ein enues Fenster startet mit den
@@ -225,14 +237,69 @@ public class Start extends Application {
 			public void handle(ActionEvent ae) {
 				Stage stage_ubung = new Stage();
 				stage_ubung.setTitle("Aufgabe");
+
 				try {
 					stage_ubung.setScene(new Scene(aufgabe(stage_ubung)));
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				stage_ubung.show();
+				
+
 			}
 		});
+
+		/// neuer Akztest
+
+		// AkzTest.setText(klasseTest.getCode());
+
+		CA.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent ae) {
+				if (geladen == true) {
+					timer.schedule(new TimerTask() {
+						@Override
+						public void run() {
+							AkzTest.setText("");
+							// timer.cancel();
+							// schrittZurueck(1);
+						}
+					}, babyValue * 1000);
+
+					AkzTest.setText(klasseTest.getCode());
+					//red.setDisable(false);
+					textProgramm.setDisable(true);
+					textProgramm.setText(klasseMain.getCode());
+					backUpMain = textProgramm.getText();
+				}
+			}
+		});
+		
+		
+		AkzepTest.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent ae) {
+				klasseTest.setCode(AkzTest.getText());
+				klasseMain.setCode(textProgramm.getText());
+				testErfolgreich = compiliere(klasseTest.getCode(), klasseTest.getName(), klasseMain.getCode(),
+						klasseMain.getName(), textKonsole);
+				if (testErfolgreich) {
+					//red.setDisable(true);
+					AkzepTest.setDisable(false);
+					red.setDisable(false);
+					//textTest.setDisable(true);
+					AkzepTest.setDisable(true);
+				} else {
+					textKonsole.setText("Akzeptanztest klappt,\nRED ist freigeschaltet");
+					red.setDisable(false);
+				}
+			}
+		});
+
+		
+
+		// bis hier neuer Akztest
 
 		// Textfeld darf nur geaendert werden wenn der RED Button geklickt wurde
 		red.setOnAction(new EventHandler<ActionEvent>() {
@@ -243,10 +310,10 @@ public class Start extends Application {
 						@Override
 						public void run() {
 							textTest.setText("");
-							//timer.cancel();
-							//schrittZurueck(1);
+							// timer.cancel();
+							// schrittZurueck(1);
 						}
-					}, babyValue*1000);
+					}, babyValue * 1000);
 					textTest.setText(klasseTest.getCode());
 					textTest.setDisable(false);
 					textProgramm.setDisable(true);
@@ -263,13 +330,13 @@ public class Start extends Application {
 			@Override
 			public void handle(ActionEvent ae) {
 				timer.schedule(new TimerTask() {
-						@Override
-						public void run() {
-							textProgramm.setText("");
-							//timer.cancel();
-							//schrittZurueck(0);
-						}
-					}, babyValue*1000);
+					@Override
+					public void run() {
+						textProgramm.setText("");
+						// timer.cancel();
+						// schrittZurueck(0);
+					}
+				}, babyValue * 1000);
 				pruefeProg.setDisable(false);
 				backtoRed.setDisable(false);
 				textProgramm.setDisable(false);
@@ -286,8 +353,6 @@ public class Start extends Application {
 				System.exit(0);
 			}
 		});
-		
-
 
 		// Speichern speichert das Programm
 		speichern.setOnAction(new EventHandler<ActionEvent>() {
@@ -329,7 +394,7 @@ public class Start extends Application {
 				testErfolgreich = compiliere(klasseTest.getCode(), klasseTest.getName(), klasseMain.getCode(),
 						klasseMain.getName(), textKonsole);
 				if (testErfolgreich) {
-					textKonsole.setText("Nicht Erfolgreich, bitte Main weiter abï¿½ndern");
+					textKonsole.setText("Nicht Erfolgreich, bitte Main weiter abaendern");
 				} else {
 					textKonsole.setText(
 							"Erfolgreich!\nDu kannst die Test Methoden und das Main Programm anpassen,\nsowie den AkzeptanzTest checken.");
@@ -340,7 +405,7 @@ public class Start extends Application {
 					textTest.setDisable(false);
 					textProgramm.setDisable(false);
 					// nur jetzt kann der AkzepetanzTest gecheckt werden
-					aktzeptanzCheckbox.setDisable(false);
+					// aktzeptanzCheckbox.setDisable(false);
 				}
 
 			}
@@ -356,7 +421,7 @@ public class Start extends Application {
 				textTest.setDisable(false);
 				textProgramm.setText(backUpMain);
 				textProgramm.setDisable(true);
-				aktzeptanzCheckbox.setDisable(true);
+				// aktzeptanzCheckbox.setDisable(true);  //auskommentieren evtl
 			}
 		});
 
@@ -374,7 +439,7 @@ public class Start extends Application {
 		root.getChildren().add(backtoRed);
 		root.getChildren().add(exit);
 		root.getChildren().add(speichern);
-		root.getChildren().add(aktzeptanzCheckbox);
+	 //   root.getChildren().add(aktzeptanzCheckbox); //evtl auch raus
 
 		// Fuege Labels hinzu
 		root.getChildren().add(label);
@@ -382,35 +447,24 @@ public class Start extends Application {
 		root.getChildren().add(CA);
 		root.getChildren().add(Akzeptanztest);
 		root.getChildren().add(AkzTest);
+		root.getChildren().add(AkzepTest);
 		return root;
 	}
-	/* Noch in Arbeit
-	private void schrittZurueck(int pruefe){
-		if(pruefe == 0){
-			textTest.setText(klasseTest.getCode());
-			textTest.setDisable(false);
-			textProgramm.setDisable(true);
-			textProgramm.setText(klasseMain.getCode());
-			startTest.setDisable(false);
-			backUpMain = textProgramm.getText();
-			timer.schedule(new TimerTask() {
-				@Override
-				public void run() {
-					textTest.setText("");
-					schrittZurueck(1);
-				}
-			}, babyValue*1000);
-		}
-		if(pruefe == 1){
-			red.setDisable(false);
-			green.setDisable(true);
-			pruefeProg.setDisable(true);
-			backtoRed.setDisable(true);
-			textTest.setDisable(false);
-			textProgramm.setDisable(false);
-		}
-		
-	}*/
+	/*
+	 * Noch in Arbeit private void schrittZurueck(int pruefe){ if(pruefe == 0){
+	 * textTest.setText(klasseTest.getCode()); textTest.setDisable(false);
+	 * textProgramm.setDisable(true);
+	 * textProgramm.setText(klasseMain.getCode()); startTest.setDisable(false);
+	 * backUpMain = textProgramm.getText(); timer.schedule(new TimerTask() {
+	 * 
+	 * @Override public void run() { textTest.setText(""); schrittZurueck(1); }
+	 * }, babyValue*1000); } if(pruefe == 1){ red.setDisable(false);
+	 * green.setDisable(true); pruefeProg.setDisable(true);
+	 * backtoRed.setDisable(true); textTest.setDisable(false);
+	 * textProgramm.setDisable(false); }
+	 * 
+	 * }
+	 */
 
 	// code fuer das Fenster Uebugnsaufgaben: uebernimmt die stage (Fenster)
 	// damit beim Knopf druecken reinladen dies automatisch geschlossen wird
@@ -470,19 +524,19 @@ public class Start extends Application {
 				ExtraStage.setScene(new Scene(createContent()));
 
 				// Bereite die Maske "Akzeptanztest" vor:
-		/*		Stage stage_akzeptanz = new Stage();
-				stage_akzeptanz.setTitle("Akzeptanztest");
-				try {
-					stage_akzeptanz.setScene(new Scene(akzept_test(stage_akzeptanz)));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				/*
+				 * Stage stage_akzeptanz = new Stage();
+				 * stage_akzeptanz.setTitle("Akzeptanztest"); try {
+				 * stage_akzeptanz.setScene(new
+				 * Scene(akzept_test(stage_akzeptanz))); } catch (Exception e) {
+				 * e.printStackTrace(); }
+				 * 
+				 * // Auf den Schirm mit den neuen Werten aktualisieren. //
+				 * ExtraStage.setScene(new Scene(createContent()));
+				 * 
+				 * stage_ubung.close(); stage_akzeptanz.toFront();
+				 */
 
-				// Auf den Schirm mit den neuen Werten aktualisieren.
-				// ExtraStage.setScene(new Scene(createContent()));
-
-				stage_ubung.close();
-				stage_akzeptanz.toFront(); */
 			}
 		});
 
@@ -491,52 +545,45 @@ public class Start extends Application {
 		return root;
 	}
 
-/*	public Parent akzept_test(Stage stage_akzeptanz) throws IOException {
-		Pane root_akzept = new Pane();
-		root_akzept.setPrefSize(600, 600);
-
-		Button checker = new Button("Check Programm");
-		checker.setTranslateX(225);
-		checker.setTranslateY(400);
-
-		TextArea akzept_text = new TextArea();
-		akzept_text.setPrefSize(300, 200);
-		akzept_text.setTranslateY(150);
-		akzept_text.setTranslateX(150);
-
-		akzept_text.setText(klasseTest.getCode());
-
-		// Hiermit wird der RED Button aktiviert
-		// eigentlich sollte hier nun ueberprueft werden, ob das Programm den
-		// Akzeptanztest erfuellt.
-		// Wenn nicht, wird der RED Button freigegeben
-		checker.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent ae) {
-
-				stage_akzeptanz.close();
-				KlasseMainFuerAkzeptanztest = new JavaFile(klasseMain.getName(), textProgramm.getText());
-
-				if (compiliere(klasseAkzeptanzTest.getCode(), klasseAkzeptanzTest.getName(),
-						KlasseMainFuerAkzeptanztest.getCode(), KlasseMainFuerAkzeptanztest.getName(), textKonsole)) {
-					geladen = true;
-					textKonsole.setText("Akzeptanztest noch nicht erfuellt!\nProgramm muss bearbeitet werden.");
-
-				} else {
-					textKonsole.setText("Programm in Ordnung.");
-				}
-
-			}
-
-		});
-
-		root_akzept.getChildren().addAll(akzept_text, checker);
-
-		stage_akzeptanz.show();
-		stage_akzeptanz.toFront();
-		stage_akzeptanz.centerOnScreen();
-		return root_akzept;
-	} */
+	/*
+	 * public Parent akzept_test(Stage stage_akzeptanz) throws IOException {
+	 * Pane root_akzept = new Pane(); root_akzept.setPrefSize(600, 600);
+	 * 
+	 * Button checker = new Button("Check Programm");
+	 * checker.setTranslateX(225); checker.setTranslateY(400);
+	 * 
+	 * TextArea akzept_text = new TextArea(); akzept_text.setPrefSize(300, 200);
+	 * akzept_text.setTranslateY(150); akzept_text.setTranslateX(150);
+	 * 
+	 * akzept_text.setText(klasseTest.getCode());
+	 * 
+	 * // Hiermit wird der RED Button aktiviert // eigentlich sollte hier nun
+	 * ueberprueft werden, ob das Programm den // Akzeptanztest erfuellt. //
+	 * Wenn nicht, wird der RED Button freigegeben checker.setOnAction(new
+	 * EventHandler<ActionEvent>() {
+	 * 
+	 * @Override public void handle(ActionEvent ae) {
+	 * 
+	 * stage_akzeptanz.close(); KlasseMainFuerAkzeptanztest = new
+	 * JavaFile(klasseMain.getName(), textProgramm.getText());
+	 * 
+	 * if (compiliere(klasseAkzeptanzTest.getCode(),
+	 * klasseAkzeptanzTest.getName(), KlasseMainFuerAkzeptanztest.getCode(),
+	 * KlasseMainFuerAkzeptanztest.getName(), textKonsole)) { geladen = true;
+	 * textKonsole.setText(
+	 * "Akzeptanztest noch nicht erfuellt!\nProgramm muss bearbeitet werden.");
+	 * 
+	 * } else { textKonsole.setText("Programm in Ordnung."); }
+	 * 
+	 * }
+	 * 
+	 * });
+	 * 
+	 * root_akzept.getChildren().addAll(akzept_text, checker);
+	 * 
+	 * stage_akzeptanz.show(); stage_akzeptanz.toFront();
+	 * stage_akzeptanz.centerOnScreen(); return root_akzept; }
+	 */
 
 	@Override
 	public void start(Stage stage) {
