@@ -287,13 +287,7 @@ public class Start extends Application {
 			}
 		});
 		
-		
-	/*	CA.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent ae) {
-				System.exit(0);
-			}
-		}); */
+
 
 		// Speichern speichert das Programm
 		speichern.setOnAction(new EventHandler<ActionEvent>() {
@@ -458,6 +452,7 @@ public class Start extends Application {
 		reinladen.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae) {
+				geladen = true; // davor in Akzeptanztest
 				// Neue Objekt machen, und direkt die noetige Parameters beim
 				// Constructor geben.
 				ReinladenClasse reinladenobjekt = new ReinladenClasse(tableNodeList, list, aufgabenanzahl, document);
@@ -475,7 +470,7 @@ public class Start extends Application {
 				ExtraStage.setScene(new Scene(createContent()));
 
 				// Bereite die Maske "Akzeptanztest" vor:
-				Stage stage_akzeptanz = new Stage();
+		/*		Stage stage_akzeptanz = new Stage();
 				stage_akzeptanz.setTitle("Akzeptanztest");
 				try {
 					stage_akzeptanz.setScene(new Scene(akzept_test(stage_akzeptanz)));
@@ -487,7 +482,7 @@ public class Start extends Application {
 				// ExtraStage.setScene(new Scene(createContent()));
 
 				stage_ubung.close();
-				stage_akzeptanz.toFront();
+				stage_akzeptanz.toFront(); */
 			}
 		});
 
@@ -496,7 +491,7 @@ public class Start extends Application {
 		return root;
 	}
 
-	public Parent akzept_test(Stage stage_akzeptanz) throws IOException {
+/*	public Parent akzept_test(Stage stage_akzeptanz) throws IOException {
 		Pane root_akzept = new Pane();
 		root_akzept.setPrefSize(600, 600);
 
@@ -541,7 +536,7 @@ public class Start extends Application {
 		stage_akzeptanz.toFront();
 		stage_akzeptanz.centerOnScreen();
 		return root_akzept;
-	}
+	} */
 
 	@Override
 	public void start(Stage stage) {
