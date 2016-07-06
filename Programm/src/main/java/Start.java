@@ -289,7 +289,7 @@ public class Start extends Application {
 					AkzepTest.setDisable(false);
 					red.setDisable(false);
 					//textTest.setDisable(true);
-					AkzepTest.setDisable(true);
+					//AkzepTest.setDisable(true);
 				} else {
 					textKonsole.setText("Akzeptanztest klappt,\nRED ist freigeschaltet");
 					red.setDisable(false);
