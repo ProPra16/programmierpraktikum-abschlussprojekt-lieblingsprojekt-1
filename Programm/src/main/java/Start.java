@@ -92,12 +92,10 @@ public class Start extends Application {
 		AkzTest.setTranslateY(30);
 		AkzTest.setEditable(true);
 		// AkzTest.setDisable(true);
-		
-		
+
 		Button AkzepTest = new Button("3. Akzeptanztest starten\num RED freizugeben");
 		AkzepTest.setTranslateX(800);
 		AkzepTest.setTranslateY(250);
-		
 
 		// Button RED zum Starten des RED Werkzeugs
 		red = new Button("RED");
@@ -138,8 +136,6 @@ public class Start extends Application {
 		speichern.setTranslateX(850);
 		speichern.setTranslateY(650);
 
-	
-		
 		// Textfeld fuer die Class.java Datei
 		textProgramm = new TextArea("");
 		textProgramm.setPrefWidth(300);
@@ -185,7 +181,7 @@ public class Start extends Application {
 		// checkbox fuer aktzeptanzTest Checken beim erfolgereich entwicklungs
 		// des Programms
 
-/*		CheckBox aktzeptanzCheckbox = new CheckBox("Check Akzeptanz");
+		CheckBox aktzeptanzCheckbox = new CheckBox("Check Akzeptanz");
 		aktzeptanzCheckbox.setTranslateX(525);
 		aktzeptanzCheckbox.setTranslateY(550);
 		aktzeptanzCheckbox.setDisable(true);
@@ -193,10 +189,11 @@ public class Start extends Application {
 		aktzeptanzCheckbox.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent ae) {
 
-				KlasseMainFuerAkzeptanztest.setCode(textProgramm.getText());
-
-				if (compiliere(klasseAkzeptanzTest.getCode(), klasseAkzeptanzTest.getName(),
-						KlasseMainFuerAkzeptanztest.getCode(), KlasseMainFuerAkzeptanztest.getName(), textKonsole)) {
+				klasseTest.setCode(AkzTest.getText());
+				klasseMain.setCode(textProgramm.getText());
+				testErfolgreich = compiliere(klasseTest.getCode(), klasseTest.getName(), klasseMain.getCode(),
+						klasseMain.getName(), textKonsole);
+				if (testErfolgreich) {
 					textKonsole.setText("Programm noch nicht erfolgreich!\nBitte Tests/Main weiter abaendern");
 
 					red.setDisable(false);
@@ -227,7 +224,7 @@ public class Start extends Application {
 
 			}
 
-		}); */
+		});
 
 		// Hier steht der Code fuer die Daten dass die Knoepfe gedreuckt wurden
 		// Button fuer Uebung reinlden, sodass ein enues Fenster startet mit den
@@ -245,14 +242,11 @@ public class Start extends Application {
 					e.printStackTrace();
 				}
 				stage_ubung.show();
-				
 
 			}
 		});
 
 		/// neuer Akztest
-
-		// AkzTest.setText(klasseTest.getCode());
 
 		CA.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -268,15 +262,14 @@ public class Start extends Application {
 					}, babyValue * 1000);
 
 					AkzTest.setText(klasseTest.getCode());
-					//red.setDisable(false);
+					// red.setDisable(false);
 					textProgramm.setDisable(true);
 					textProgramm.setText(klasseMain.getCode());
 					backUpMain = textProgramm.getText();
 				}
 			}
 		});
-		
-		
+
 		AkzepTest.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae) {
@@ -285,19 +278,17 @@ public class Start extends Application {
 				testErfolgreich = compiliere(klasseTest.getCode(), klasseTest.getName(), klasseMain.getCode(),
 						klasseMain.getName(), textKonsole);
 				if (testErfolgreich) {
-					//red.setDisable(true);
+					// red.setDisable(true);
 					AkzepTest.setDisable(false);
 					red.setDisable(false);
-					//textTest.setDisable(true);
-					//AkzepTest.setDisable(true);
+					// textTest.setDisable(true);
+					// AkzepTest.setDisable(true);
 				} else {
 					textKonsole.setText("Akzeptanztest klappt,\nRED ist freigeschaltet");
 					red.setDisable(false);
 				}
 			}
 		});
-
-		
 
 		// bis hier neuer Akztest
 
@@ -405,7 +396,7 @@ public class Start extends Application {
 					textTest.setDisable(false);
 					textProgramm.setDisable(false);
 					// nur jetzt kann der AkzepetanzTest gecheckt werden
-					// aktzeptanzCheckbox.setDisable(false);
+					aktzeptanzCheckbox.setDisable(false);
 				}
 
 			}
@@ -421,7 +412,7 @@ public class Start extends Application {
 				textTest.setDisable(false);
 				textProgramm.setText(backUpMain);
 				textProgramm.setDisable(true);
-				// aktzeptanzCheckbox.setDisable(true);  //auskommentieren evtl
+				// aktzeptanzCheckbox.setDisable(true); //auskommentieren evtl
 			}
 		});
 
@@ -439,7 +430,7 @@ public class Start extends Application {
 		root.getChildren().add(backtoRed);
 		root.getChildren().add(exit);
 		root.getChildren().add(speichern);
-	 //   root.getChildren().add(aktzeptanzCheckbox); //evtl auch raus
+		root.getChildren().add(aktzeptanzCheckbox); // evtl auch raus
 
 		// Fuege Labels hinzu
 		root.getChildren().add(label);
