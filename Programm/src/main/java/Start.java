@@ -301,7 +301,7 @@ public class Start extends Application {
 						@Override
 						public void run() {
 							textTest.setText(klasseTest.getCode());
-							if() babyValue > 180 || babyValue < 60){ babyValue = 120; }
+							if(babyValue > 180 || babyValue < 60){ babyValue = 120; }
 							// timer.cancel();
 							// schrittZurueck(1);
 						}
@@ -325,7 +325,7 @@ public class Start extends Application {
 					@Override
 					public void run() {
 						textProgramm.setText(klasseMain.getCode());
-						if() babyValue > 180 || babyValue < 60){ babyValue = 120; }
+						if(babyValue > 180 || babyValue < 60){ babyValue = 120; }
 						// timer.cancel();
 						// schrittZurueck(0);
 					}
