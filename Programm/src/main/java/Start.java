@@ -300,7 +300,8 @@ public class Start extends Application {
 					timer.schedule(new TimerTask() {
 						@Override
 						public void run() {
-							textTest.setText("");
+							textTest.setText(klasseTest.getCode());
+							if() babyValue > 180 || babyValue < 60){ babyValue = 120; }
 							// timer.cancel();
 							// schrittZurueck(1);
 						}
@@ -323,7 +324,8 @@ public class Start extends Application {
 				timer.schedule(new TimerTask() {
 					@Override
 					public void run() {
-						textProgramm.setText("");
+						textProgramm.setText(klasseMain.getCode());
+						if() babyValue > 180 || babyValue < 60){ babyValue = 120; }
 						// timer.cancel();
 						// schrittZurueck(0);
 					}
@@ -378,7 +380,8 @@ public class Start extends Application {
 		pruefeProg.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae) {
-
+				//timer.cancel()
+				//timer = new Timer();
 				klasseTest.setCode(textTest.getText());
 				klasseMain.setCode(textProgramm.getText());
 
@@ -448,7 +451,7 @@ public class Start extends Application {
 	 * textProgramm.setText(klasseMain.getCode()); startTest.setDisable(false);
 	 * backUpMain = textProgramm.getText(); timer.schedule(new TimerTask() {
 	 * 
-	 * @Override public void run() { textTest.setText(""); schrittZurueck(1); }
+	 * @Override public void run() { if(babyValue > 180 || babyValue < 60) babyValue = 120; textTest.setText(klasseTest.getCode()); schrittZurueck(1); }
 	 * }, babyValue*1000); } if(pruefe == 1){ red.setDisable(false);
 	 * green.setDisable(true); pruefeProg.setDisable(true);
 	 * backtoRed.setDisable(true); textTest.setDisable(false);
