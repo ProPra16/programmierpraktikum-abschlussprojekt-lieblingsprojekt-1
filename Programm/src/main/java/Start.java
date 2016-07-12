@@ -12,6 +12,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -44,6 +45,7 @@ public class Start extends Application {
 	private Button backtoRed;
 	private Button startTest;
 	private Timer timer = new Timer();
+	private Timeline timeline = new Timeline();
 	private boolean geladen = false;
 	private boolean testErfolgreich = false;
 	private JavaFile klasseTest, klasseMain, klasseAkzeptanzTest, KlasseMainFuerAkzeptanztest;
@@ -255,7 +257,7 @@ public class Start extends Application {
 					timer.schedule(new TimerTask() {
 						@Override
 						public void run() {
-							AkzTest.setText("");
+							AkzTest.setText(klasseTest.getCode());
 							// timer.cancel();
 							// schrittZurueck(1);
 						}
