@@ -12,7 +12,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -45,7 +44,6 @@ public class Start extends Application {
 	private Button backtoRed;
 	private Button startTest;
 	private Timer timer = new Timer();
-	private Timeline timeline = new Timeline();
 	private boolean geladen = false;
 	private boolean testErfolgreich = false;
 	private JavaFile klasseTest, klasseMain, klasseAkzeptanzTest, KlasseMainFuerAkzeptanztest;
@@ -254,11 +252,14 @@ public class Start extends Application {
 			@Override
 			public void handle(ActionEvent ae) {
 				if (geladen == true) {
+					if(babyValue > 180 || babyValue < 60){ babyValue = 120; }
+					timer.cancel();
+					timer = new Timer();
 					timer.schedule(new TimerTask() {
 						@Override
 						public void run() {
 							AkzTest.setText(klasseTest.getCode());
-							// timer.cancel();
+							timer.cancel();
 							// schrittZurueck(1);
 						}
 					}, babyValue * 1000);
@@ -299,12 +300,15 @@ public class Start extends Application {
 			@Override
 			public void handle(ActionEvent ae) {
 				if (geladen == true) {
+					if(babyValue > 180 || babyValue < 60){ babyValue = 120; }
+					timer.cancel();
+					timer = new Timer();
 					timer.schedule(new TimerTask() {
 						@Override
 						public void run() {
 							textTest.setText(klasseTest.getCode());
-							if(babyValue > 180 || babyValue < 60){ babyValue = 120; }
-							// timer.cancel();
+							timer.cancel();
+							klick(1);
 							// schrittZurueck(1);
 						}
 					}, babyValue * 1000);
@@ -323,12 +327,14 @@ public class Start extends Application {
 		green.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae) {
+				if(babyValue > 180 || babyValue < 60){ babyValue = 120; }
+				timer.cancel();
+				timer = new Timer();
 				timer.schedule(new TimerTask() {
 					@Override
 					public void run() {
 						textProgramm.setText(klasseMain.getCode());
-						if(babyValue > 180 || babyValue < 60){ babyValue = 120; }
-						// timer.cancel();
+						timer.cancel();
 						// schrittZurueck(0);
 					}
 				}, babyValue * 1000);
@@ -410,6 +416,17 @@ public class Start extends Application {
 		backtoRed.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae) {
+				timer.cancel();
+				if(babyValue > 180 || babyValue < 60){ babyValue = 120; }
+				timer = new Timer();
+				timer.schedule(new TimerTask() {
+					@Override
+					public void run() {
+						textProgramm.setText(klasseMain.getCode());
+						timer.cancel();
+						// schrittZurueck(0);
+					}
+				}, babyValue * 1000);
 				startTest.setDisable(false);
 				green.setDisable(true);
 				backtoRed.setDisable(true);
@@ -445,6 +462,11 @@ public class Start extends Application {
 		root.getChildren().add(AkzTest);
 		root.getChildren().add(AkzepTest);
 		return root;
+	}
+	
+	private void klick(int pruefe){
+		if(pruefe == 1) click(backtoRed);
+		
 	}
 	/*
 	 * Noch in Arbeit private void schrittZurueck(int pruefe){ if(pruefe == 0){
