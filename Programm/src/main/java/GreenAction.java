@@ -6,16 +6,28 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 public class GreenAction extends RedAction{
 	
 
-	public void greenAction(Button green,JavaFile klasseMain, JavaFile klasseTest, int babyValue, Timer timer, TextArea textProgramm, TextArea textTest, Button pruefeProg, Button backtoRed)
+	public void greenAction(Button green,JavaFile klasseMain, JavaFile klasseTest, int babyValue, Timer timer, TextArea textProgramm, TextArea textTest, Button pruefeProg, Button backtoRed, TextField counter,Timer sekunden)
 	{
 		this.Value=babyValue;
 		green.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae) {
+				sekunden.cancel();
+				int temp = babyValue;
+				sekunden = new Timer();
+				sekunden.schedule(new TimerTask() {
+						@Override
+						public void run() {
+							if(temp == 0)sekunden.cancel();
+							counter.setText("Noch"+temp+"Sekunden");
+							if(temp != 0) temp--;
+						}
+					}, 1000,1000);
 				timer.schedule(new TimerTask() {
 					@Override 
 					public void run() {
