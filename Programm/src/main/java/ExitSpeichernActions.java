@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -70,33 +71,25 @@ public class ExitSpeichernActions extends LesenAusXml{
 							
 					}
 					});
-					
+				
 					root2.getChildren().add(schliesstext);
 					root2.getChildren().add(close);
 					root2.getChildren().add(abbrechen);
-					return root2;
-					
-					
-	
-	
-					
-	
-	
-	
+					return root2;			
 }
 				
-		
-
-		
-
-	
-	public void speichernAction(Button speichern, JavaFile klasseTest, JavaFile klasseMain)
+	public void speichernAction(Button speichern, JavaFile klasseTest, JavaFile klasseMain, JavaFile klasseAkTesttextTest, TextArea AkzTest, TextArea textTest, TextArea  textProgramm)
 	{
 		speichern.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae) {
+				klasseMain.setCode(textProgramm.getText());
+				klasseTest.setCode(textTest.getText());
+				klasseAkTesttextTest.setCode(AkzTest.getText());
+				klasseAkTesttextTest.setName("Akzeptanztest");
 				Speichern.speichere(klasseMain);
 				Speichern.speichere(klasseTest);
+				Speichern.speichere(klasseAkTesttextTest);
 			}
 		});
 	}

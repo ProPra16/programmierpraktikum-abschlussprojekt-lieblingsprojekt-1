@@ -48,13 +48,13 @@ public class Start extends Application {
 	private JavaFile klasseTest, klasseMain, klasseAkzeptanzTest, KlasseMainFuerAkzeptanztest;
 	private String backUpMain, aufgabe;
 	private int babyValue;
-	private TextArea textTest, textKonsole, textProgramm;
+	private TextArea textTest, textKonsole, textProgramm, AkzTest;
 	// fuer das Lesen der XML Datei:
 	private DocumentBuilderFactory dbfactory;
 	private Document document;
 	private NodeList tableNodeList; 
 	private Stage ExtraStage;	
-	private Positions verkurzenObjekt=new Positions();
+	private Positions verkurzenObjekt = new Positions();
 	
 	private Parent createContent() {
 		Pane root = new Pane();
@@ -67,7 +67,7 @@ public class Start extends Application {
 		Label ersterSchritt= verkurzenObjekt.ersterSchritt();
 		Button CA=verkurzenObjekt.CA();
         Label Akzeptanztest=verkurzenObjekt.Akzeptanztest();
-		TextArea AkzTest = verkurzenObjekt.AkzTest();
+		AkzTest = verkurzenObjekt.AkzTest();
 		Button AkzepTest = verkurzenObjekt.AkzepTest();
 		// Button RED zum Starten des RED Werkzeugs
 		red = verkurzenObjekt.red();
@@ -115,8 +115,6 @@ public class Start extends Application {
 				}
 				catch(Exception e){
 					Datei="Aufgaben.xml";
-					// Setze Default Wert für die Aufgabendatei
-					System.out.println(Datei);
 				}
 				stage_ubung.setTitle("Aufgabe");
 				try {
@@ -143,7 +141,7 @@ public class Start extends Application {
 		verkurzenObjekt.exitAction(exit, timer);
 
 		// Speichern speichert das Programm
-		verkurzenObjekt.speichernAction(speichern, klasseTest, klasseMain);
+		verkurzenObjekt.speichernAction(speichern, klasseTest, klasseMain, klasseAkzeptanzTest, textTest, textProgramm, AkzTest );
 
 		// Wenn der Test erfolgreich ist dann kann der GREEN Prozess gestartet
 		// werden
