@@ -20,6 +20,7 @@ public class RedAction extends AkzepTestAction {
 			@Override
 			public void handle(ActionEvent ae) {
 				if (geladen == true) {
+					temp = babyValue;
 					sekunden.cancel();
 					sekunden = new Timer();
 					sekunden.schedule(new TimerTask() {
