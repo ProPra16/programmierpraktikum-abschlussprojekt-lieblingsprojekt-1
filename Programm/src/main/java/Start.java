@@ -19,6 +19,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -28,11 +29,13 @@ public class Start extends Application {
 	private Scene scene;
 	private Button red, green, pruefeProg, backtoRed, startTest;
 	private Timer timer = new Timer();
+	private Timer sekunden = new Timer();
 	private boolean geladen = false, testErfolgreich = false, isBaby, isTracked;
 	private JavaFile klasseTest, klasseMain, klasseAkzeptanzTest, KlasseMainFuerAkzeptanztest;
 	private String backUpMain, aufgabe;
 	private int babyValue;
 	private TextArea textTest, textKonsole, textProgramm, AkzTest;
+	private TextField counter;
 	// fuer das Lesen der XML Datei:
 	private DocumentBuilderFactory dbfactory;
 	private Document document;
@@ -68,6 +71,8 @@ public class Start extends Application {
 		Button speichern = verkurzenObjekt.speichern();
 		// Textfeld fuer die Class.java Datei
 		textProgramm = verkurzenObjekt.textProgramm();
+		// TextField fuer die Angabe der verbleibenden Zeit
+		counter = verkurzenObjekt.counter();
 		// Textfeld fuer die Konsole
 		textKonsole = verkurzenObjekt.textKonsole();
 		// Beschreibungsfeld fuer den GREEN Button
@@ -104,18 +109,18 @@ public class Start extends Application {
 		});
 		/// neuer Akztest
 		
-		verkurzenObjekt.caAction(CA, klasseTest, klasseMain, klasseAkzeptanzTest, babyValue, geladen, timer, AkzTest, textProgramm, backUpMain);		
+		verkurzenObjekt.caAction(CA, klasseTest, klasseMain, klasseAkzeptanzTest, babyValue, geladen, timer, AkzTest, textProgramm, backUpMain,counter,sekunden);		
 		
 		verkurzenObjekt.akzepTestAction(AkzepTest, red, klasseAkzeptanzTest, klasseMain, AkzTest, textProgramm, textKonsole, testErfolgreich);
 
 		// Textfeld darf nur geaendert werden wenn der RED Button geklickt wurde
-        verkurzenObjekt.redAction(red, startTest, klasseMain, klasseTest, babyValue, geladen, timer, textTest, textProgramm, backUpMain);
+        verkurzenObjekt.redAction(red, startTest, klasseMain, klasseTest, babyValue, geladen, timer, textTest, textProgramm, backUpMain,counter,sekunden);
 
 		// Textfeld darf nur geaendert werden wenn der GREEN Button geklickt
 		// wurde
-		verkurzenObjekt.greenAction(green, klasseMain, klasseTest, babyValue, timer, textProgramm, textTest, pruefeProg, backtoRed);
+		verkurzenObjekt.greenAction(green, klasseMain, klasseTest, babyValue, timer, textProgramm, textTest, pruefeProg, backtoRed,counter,sekunden);
 		// Exit beendet das Programm
-		verkurzenObjekt.exitAction(exit, timer);
+		verkurzenObjekt.exitAction(exit, timer,sekunden);
 
 		// Speichern speichert das Programm
 		verkurzenObjekt.speichernAction(speichern, klasseTest, klasseMain, klasseAkzeptanzTest, textTest, textProgramm, AkzTest);
@@ -134,6 +139,7 @@ public class Start extends Application {
 		root.getChildren().add(textProgramm);
 		root.getChildren().add(textTest);
 		root.getChildren().add(textKonsole);
+		root.getChildren().add(counter);
 
 		// Fuege Buttons hinzu
 		root.getChildren().add(ubung);
