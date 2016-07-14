@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 
 public class GreenAction extends RedAction{
 	
+	private int temp = 0;
 
 	public void greenAction(Button green,JavaFile klasseMain, JavaFile klasseTest, int babyValue, Timer timer, TextArea textProgramm, TextArea textTest, Button pruefeProg, Button backtoRed, TextField counter,Timer sekunden)
 	{
@@ -18,8 +19,8 @@ public class GreenAction extends RedAction{
 			@Override
 			public void handle(ActionEvent ae) {
 				sekunden.cancel();
-				int final temp = babyValue;
-				sekunden = new Timer();
+				temp = babyValue;
+				Timer sekunden = new Timer();
 				sekunden.schedule(new TimerTask() {
 						@Override
 						public void run() {
