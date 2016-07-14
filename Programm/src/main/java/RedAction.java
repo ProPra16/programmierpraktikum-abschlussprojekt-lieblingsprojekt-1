@@ -15,11 +15,11 @@ public class RedAction extends AkzepTestAction {
 	{
 		Value=babyValue;
 		backUp=backUpMain;
+		temp = babyValue;
 		
 		red.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae) {
-				temp = babyValue;
 				if (geladen == true) {
 					sekunden.cancel();
 					Timer sekunden = new Timer();
@@ -47,6 +47,7 @@ public class RedAction extends AkzepTestAction {
 					startTest.setDisable(false);
 					backUp = textProgramm.getText();
 				}
+				temp = babyValue;
 			}
 		});
 		babyValue=Value;
