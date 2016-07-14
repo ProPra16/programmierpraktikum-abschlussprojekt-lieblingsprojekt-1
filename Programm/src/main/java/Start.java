@@ -1,10 +1,6 @@
 
 import java.io.File;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -25,13 +21,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-// Imports fuer die Bibilothek vom Java Compiler
-import vk.core.api.CompilationUnit;
-import vk.core.api.CompilerFactory;
-import vk.core.api.JavaStringCompiler;
-import vk.core.api.TestFailure;
-import vk.core.api.TestResult;
 
 public class Start extends Application {
 	
@@ -102,10 +93,20 @@ public class Start extends Application {
 			public void handle(ActionEvent ae) {
 				
 				Stage stage_ubung = new Stage();
+				String Datei = "";
+				FileChooser fileChooser = new FileChooser();
+				
+				try{
+					Datei = fileChooser.showOpenDialog(stage_ubung).getPath();
+				}
+				catch(Exception e){
+					Datei="Aufgaben.xml";
+					// Setze Default Wert für die Aufgabendatei
+					System.out.println(Datei);
+				}
 				stage_ubung.setTitle("Aufgabe");
 				try {
-					stage_ubung.setScene(new Scene(aufgabe(stage_ubung)));
-
+					stage_ubung.setScene(new Scene(aufgabe(stage_ubung, Datei)));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -171,7 +172,7 @@ public class Start extends Application {
 
 	// code fuer das Fenster Uebugnsaufgaben: uebernimmt die stage (Fenster)
 	// damit beim Knopf druecken reinladen dies automatisch geschlossen wird
-	private Parent aufgabe(Stage stage_ubung) throws Exception {
+	private Parent aufgabe(Stage stage_ubung, String Datei) throws Exception {
 
 		Pane root = new Pane();
 		root.setPrefSize(400, 400);
@@ -185,7 +186,7 @@ public class Start extends Application {
 		// durchsucht; alle Eintraege hinter "exercise name" werden ausgegeben
 		dbfactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = dbfactory.newDocumentBuilder();
-		document = builder.parse(new File("Aufgaben.xml"));
+		document = builder.parse(new File(Datei));
 
 		tableNodeList = document.getElementsByTagName("exercise");
 
