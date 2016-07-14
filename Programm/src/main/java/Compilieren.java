@@ -9,17 +9,15 @@ import vk.core.api.TestFailure;
 import vk.core.api.TestResult;
 
 public class Compilieren {
-	
+	String konsolentext;
+	JavaStringCompiler javaCompilers;
+	CompilationUnit classTest, classMain;
     //Die Function um die Test/Methoden zu Testen
 	public boolean compiliere(String codeTest, String nameTest, String codeMain, String nameMain,
 			TextArea textKonsole) {
 		boolean result = false;
 		try {
-			CompilationUnit classTest = new CompilationUnit(nameTest, codeTest, true);
-			CompilationUnit classMain = new CompilationUnit(nameMain, codeMain, false);
-			JavaStringCompiler javaCompilers = CompilerFactory.getCompiler(classMain, classTest);
-			javaCompilers.compileAndRunTests();
-			result = javaCompilers.getCompilerResult().hasCompileErrors();
+			result =  starteCompiler(codeTest, nameTest, codeMain, nameMain);			
 			if (result) {
 				textKonsole.setText(textKonsole.getText() + "\n"
 						+ javaCompilers.getCompilerResult().getCompilerErrorsForCompilationUnit(classTest).toString());
@@ -54,6 +52,15 @@ public class Compilieren {
 			return false;
 		}
 
+	}
+	
+	public boolean starteCompiler(String codeTest, String nameTest, String codeMain, String nameMain){
+		CompilationUnit classTest = new CompilationUnit(nameTest, codeTest, true);
+		CompilationUnit classMain = new CompilationUnit(nameMain, codeMain, false);
+		javaCompilers = CompilerFactory.getCompiler(classMain, classTest);
+		javaCompilers.compileAndRunTests();
+		return javaCompilers.getCompilerResult().hasCompileErrors();
+		
 	}
 	
 	
