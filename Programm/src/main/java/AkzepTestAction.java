@@ -6,15 +6,16 @@ import javafx.scene.control.TextArea;
 public class AkzepTestAction extends CaAction {
 	
 	
-	public void akzepTestAction(Button AkzepTest, Button red, JavaFile klasseTest, JavaFile klasseMain, TextArea AkzTest, TextArea textProgramm, TextArea textKonsole, boolean testErfolgreich)
+	public void akzepTestAction(Button AkzepTest, Button red, JavaFile klasseAkzeptanzTest, JavaFile klasseMain, TextArea AkzTest, TextArea textProgramm, TextArea textKonsole, boolean testErfolgreich)
 	{
 		test=testErfolgreich;
 		AkzepTest.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae) {
-				klasseTest.setCode(AkzTest.getText());
+				klasseAkzeptanzTest.setCode(AkzTest.getText());
 				klasseMain.setCode(textProgramm.getText());
-				test = compiliere(klasseTest.getCode(), klasseTest.getName(), klasseMain.getCode(),
+				
+				test = compiliere(klasseAkzeptanzTest.getCode(), klasseAkzeptanzTest.getName(), klasseMain.getCode(),
 						klasseMain.getName(), textKonsole);
 				if (test) {
 					// red.setDisable(true);

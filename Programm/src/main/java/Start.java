@@ -1,9 +1,5 @@
 import java.io.File;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -25,12 +21,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-// Imports fuer die Bibilothek vom Java Compiler
-import vk.core.api.CompilationUnit;
-import vk.core.api.CompilerFactory;
-import vk.core.api.JavaStringCompiler;
-import vk.core.api.TestFailure;
-import vk.core.api.TestResult;
 
 public class Start extends Application {
 	
@@ -114,9 +104,9 @@ public class Start extends Application {
 		});
 		/// neuer Akztest
 		
-		verkurzenObjekt.caAction(CA, klasseTest, klasseMain, babyValue, geladen, timer, AkzTest, textProgramm, backUpMain);		
+		verkurzenObjekt.caAction(CA, klasseTest, klasseMain, klasseAkzeptanzTest, babyValue, geladen, timer, AkzTest, textProgramm, backUpMain);		
 		
-		verkurzenObjekt.akzepTestAction(AkzepTest, red, klasseTest, klasseMain, AkzTest, textProgramm, textKonsole, testErfolgreich);
+		verkurzenObjekt.akzepTestAction(AkzepTest, red, klasseAkzeptanzTest, klasseMain, AkzTest, textProgramm, textKonsole, testErfolgreich);
 
 		// Textfeld darf nur geaendert werden wenn der RED Button geklickt wurde
         verkurzenObjekt.redAction(red, startTest, klasseMain, klasseTest, babyValue, geladen, timer, textTest, textProgramm, backUpMain);
@@ -135,7 +125,7 @@ public class Start extends Application {
 		verkurzenObjekt.startTestaction(startTest, klasseTest, klasseMain, textTest, textProgramm,
 				textKonsole, testErfolgreich, red, green);
 		
-		verkurzenObjekt.pruefeProgAction(pruefeProg, backtoRed, green, backtoRed,textTest, textProgramm,
+		verkurzenObjekt.pruefeProgAction(pruefeProg, red, green, backtoRed,textTest, textProgramm,
 				textKonsole,klasseTest, klasseMain,testErfolgreich, aktzeptanzCheckbox);
 
 		verkurzenObjekt.backtoRedAction(backtoRed, startTest, green, pruefeProg, textTest, textProgramm, backUpMain);
@@ -218,7 +208,7 @@ public class Start extends Application {
 				klasseMain = new JavaFile(reinladenobjekt.GetNameMain(), reinladenobjekt.GetNeueCodeMain());
 				klasseTest = new JavaFile(reinladenobjekt.GetNameTest(), reinladenobjekt.GetNeueCodeTest());
 				// Ist zu Anfang noch identisch mit normaler Test
-				klasseAkzeptanzTest = new JavaFile(reinladenobjekt.GetNameTest(), reinladenobjekt.GetNeueCodeTest());
+				klasseAkzeptanzTest = new JavaFile("Akzeptanztest", reinladenobjekt.GetNeueCodeTest());
 
 				isBaby = reinladenobjekt.GetBabystep();
 				if (isBaby) {

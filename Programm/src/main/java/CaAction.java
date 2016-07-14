@@ -9,7 +9,7 @@ import javafx.scene.control.TextArea;
 public class CaAction extends BacktoRedAction{
 	
 
-	public void caAction(Button CA, JavaFile klasseTest, JavaFile klasseMain, int babyValue, boolean geladen, Timer timer, TextArea AkzTest, TextArea textProgramm, String backUpMain)
+	public void caAction(Button CA, JavaFile klasseTest, JavaFile klasseMain, JavaFile klasseAkzeptanzTest, int babyValue, boolean geladen, Timer timer, TextArea AkzTest, TextArea textProgramm, String backUpMain)
 	{
 		backUp=backUpMain;
 		CA.setOnAction(new EventHandler<ActionEvent>() {
@@ -32,7 +32,9 @@ public class CaAction extends BacktoRedAction{
 					+ "      public void aTest(){\n"
 					+ "            assertEquals(null,TestCode.convert());\n"
 					+ "      }\n"
-					+ "}\n";			
+					+ "}\n";	
+					
+					klasseAkzeptanzTest.setCode(AktestHaupt);
 
 					AkzTest.setText(AktestHaupt);
 					// red.setDisable(false);
