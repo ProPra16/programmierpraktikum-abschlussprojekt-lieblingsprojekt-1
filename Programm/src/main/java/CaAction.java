@@ -13,11 +13,10 @@ public class CaAction extends BacktoRedAction{
 	public void caAction(Button CA, JavaFile klasseTest, JavaFile klasseMain, JavaFile klasseAkzeptanzTest, int babyValue, boolean geladen, Timer timer, TextArea AkzTest, TextArea textProgramm, String backUpMain,TextField counter,Timer sekunden)
 	{
 		backUp=backUpMain;
-		int temp = babyValue;
 		CA.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae) {
-				temp = babyValue;
+				int final temp = babyValue;
 				if (geladen == true) {
 					sekunden.cancel();
 					sekunden = new Timer();
