@@ -39,7 +39,7 @@ public class ExitSpeichernActions extends LesenAusXml{
 					Pane root2 = new Pane();
 					root2.setPrefSize(250, 200);
 					
-					Label schliesstext = new Label("Möchten Sie wirklich beenden?\nBitte ans Abspeichern denken");
+					Label schliesstext = new Label("Moechten Sie wirklich beenden?\nBitte ans Abspeichern denken");
 					schliesstext.setLayoutX(50);
 					schliesstext.setLayoutY(20);
 					schliesstext.setId("schliesstext");
@@ -75,14 +75,7 @@ public class ExitSpeichernActions extends LesenAusXml{
 					root2.getChildren().add(close);
 					root2.getChildren().add(abbrechen);
 					return root2;
-					
-					
-	
-	
-					
-	
-	
-	
+		
 }
 				
 		

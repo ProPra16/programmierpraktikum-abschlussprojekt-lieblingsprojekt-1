@@ -23,7 +23,7 @@ public class Positions extends PruefeProgActions {
 	
 	public Label ersterSchritt()
 	{
-		Label ersterSchritt =new Label("Wählen Sie zunächst eine Übung aus, um mit dem Testen und Programmieren beginnen zu können.");
+		Label ersterSchritt =new Label("Waehlen Sie zunaechst eine Übung aus, um mit dem Testen und Programmieren beginnen zu koennen.");
 		ersterSchritt.setLayoutX(20);
 		ersterSchritt.setLayoutY(85);
 		ersterSchritt.setId("ersterSchritt");
@@ -47,7 +47,7 @@ public class Positions extends PruefeProgActions {
 	
 	public Label verweisaufakztest()
 	{
-		Label verweisaufakztest =new Label("Bitte schreiben Sie als nächstes einen für die ausgesuchte Aufgabe geeigneten Akzeptanztest (siehe auf der rechten Seite).");
+		Label verweisaufakztest =new Label("Bitte schreiben Sie als naechstes einen für die ausgesuchte Aufgabe geeigneten Akzeptanztest (siehe auf der rechten Seite).");
 		verweisaufakztest.setLayoutX(20);
 		verweisaufakztest.setLayoutY(140);
 		verweisaufakztest.setId("verweisaufakztest");

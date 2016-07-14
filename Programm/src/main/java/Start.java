@@ -61,6 +61,7 @@ public class Start extends Application {
 		Label willkommen= verkurzenObjekt.willkommen();
 		Label ersterSchritt= verkurzenObjekt.ersterSchritt();
 		Button CA=verkurzenObjekt.CA();
+		Label verweisaufakztest = verkurzenObjekt.verweisaufakztest();
         Label Akzeptanztest=verkurzenObjekt.Akzeptanztest();
 		TextArea AkzTest = verkurzenObjekt.AkzTest();
 		Button AkzepTest = verkurzenObjekt.AkzepTest();
@@ -160,6 +161,7 @@ public class Start extends Application {
 		root.getChildren().add(label);
 		root.getChildren().add(ersterSchritt);
 		root.getChildren().add(willkommen);
+		root.getChildren().add(verweisaufakztest);
 		root.getChildren().add(label1);
 		root.getChildren().add(CA);
 		root.getChildren().add(Akzeptanztest);
