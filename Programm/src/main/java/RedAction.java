@@ -21,7 +21,7 @@ public class RedAction extends AkzepTestAction {
 				if (geladen == true) {
 					int final temp = babyValue;
 					sekunden.cancel();
-					sekunden = new Timer();
+					Timer sekunden = new Timer();
 					sekunden.schedule(new TimerTask() {
 						@Override
 						public void run() {
