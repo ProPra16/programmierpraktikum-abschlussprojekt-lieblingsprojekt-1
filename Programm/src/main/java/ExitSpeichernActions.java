@@ -75,12 +75,8 @@ public class ExitSpeichernActions extends LesenAusXml{
 					root2.getChildren().add(schliesstext);
 					root2.getChildren().add(close);
 					root2.getChildren().add(abbrechen);
-<<<<<<< HEAD
 					return root2;
-		
-=======
-					return root2;			
->>>>>>> 56fd0447ebb1656d57090f88430e52902ece809c
+
 }
 				
 	public void speichernAction(Button speichern, JavaFile klasseTest, JavaFile klasseMain, JavaFile klasseAkTesttextTest, TextArea AkzTest, TextArea textTest, TextArea  textProgramm)
