@@ -47,11 +47,11 @@ public class RedAction extends AkzepTestAction {
 					startTest.setDisable(false);
 					backUp = textProgramm.getText();
 				}
-				temp = babyValue;
 			}
 		});
 		babyValue=Value;
 		backUpMain=backUp;
+		temp = babyValue;
 		
 		
 		
