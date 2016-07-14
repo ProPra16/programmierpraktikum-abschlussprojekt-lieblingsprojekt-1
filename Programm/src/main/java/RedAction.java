@@ -5,11 +5,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 public class RedAction extends AkzepTestAction {
 	
 	
-	public void redAction(Button red, Button startTest, JavaFile klasseMain, JavaFile klasseTest, int babyValue, boolean geladen, Timer timer, TextArea textTest, TextArea textProgramm, String backUpMain)
+	public void redAction(Button red, Button startTest, JavaFile klasseMain, JavaFile klasseTest, int babyValue, boolean geladen, Timer timer, TextArea textTest, TextArea textProgramm, String backUpMain,Timer sekunden,TextField counter)
 	{
 		Value=babyValue;
 		backUp=backUpMain;
@@ -18,6 +19,17 @@ public class RedAction extends AkzepTestAction {
 			@Override
 			public void handle(ActionEvent ae) {
 				if (geladen == true) {
+					int temp = babyValue;
+					sekunden.cancel();
+					sekunden = new Timer();
+					sekunden.schedule(new TimerTask() {
+						@Override
+						public void run() {
+							if(temp == 0)sekunden.cancel();
+							counter.setText("Noch"+temp+"Sekunden");
+							if(temp != 0) temp--;
+						}
+					}, 1000,1000);
 					timer.schedule(new TimerTask() {
 						@Override
 						public void run() {
