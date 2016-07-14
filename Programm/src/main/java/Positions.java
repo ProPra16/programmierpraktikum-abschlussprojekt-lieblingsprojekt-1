@@ -4,14 +4,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.effect.BoxBlur;
+import javafx.scene.effect.GaussianBlur;
+import javafx.scene.effect.Reflection;
+import javafx.scene.text.Font;
 
 public class Positions extends PruefeProgActions {
 
 	public Button ubung()
 	{
 		Button ubung =new Button("1. Uebung reinladen");
-		ubung.setLayoutX(200);
-		ubung.setLayoutY(50);
+		ubung.setLayoutX(250);
+		ubung.setLayoutY(110);
 		ubung.setId("ubung");
 		ubung.setStyle("-fx-text-fill: BLUE;");
 		return ubung;
@@ -21,11 +25,26 @@ public class Positions extends PruefeProgActions {
 	{
 		Label ersterSchritt =new Label("Wähle zunächst eine Übung aus, um mit dem Testen und Programmieren beginnen zu können.");
 		ersterSchritt.setLayoutX(20);
-		ersterSchritt.setLayoutY(20);
+		ersterSchritt.setLayoutY(85);
 		ersterSchritt.setId("ersterSchritt");
 		//ersterSchritt.setStyle("-fx-text-fill: BLUE;");
 		return ersterSchritt;
 	}
+	
+	
+	public Label willkommen()
+	{
+		Label willkommen =new Label("Willkommen beim Test-Tutorial");
+		willkommen.setLayoutX(200);
+		willkommen.setLayoutY(20);
+		willkommen.setId("willkomen");
+		Font myFont = new Font("Courier", 20);
+	    willkommen.setFont(myFont);
+		willkommen.setEffect(new Reflection());
+		return willkommen;
+	}
+	
+	
 	
 	public Button CA()
 	{
