@@ -14,11 +14,12 @@ public class GreenAction extends RedAction{
 	public void greenAction(Button green,JavaFile klasseMain, JavaFile klasseTest, int babyValue, Timer timer, TextArea textProgramm, TextArea textTest, Button pruefeProg, Button backtoRed, TextField counter,Timer sekunden)
 	{
 		this.Value=babyValue;
+		int temp = babyValue;
 		green.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae) {
 				sekunden.cancel();
-				int temp = babyValue;
+				temp = babyValue;
 				sekunden = new Timer();
 				sekunden.schedule(new TimerTask() {
 						@Override
