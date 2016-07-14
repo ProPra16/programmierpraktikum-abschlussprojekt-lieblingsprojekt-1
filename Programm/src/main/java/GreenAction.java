@@ -20,6 +20,8 @@ public class GreenAction extends RedAction{
 			@Override
 			public void handle(ActionEvent ae) {
 				sekunden.cancel();
+				timer.cancel();
+				Timer timer = new Timer();
 				Timer sekunden = new Timer();
 				sekunden.schedule(new TimerTask() {
 						@Override
@@ -34,7 +36,7 @@ public class GreenAction extends RedAction{
 					public void run() {
 						textProgramm.setText(klasseMain.getCode());
 						if( Value > 180 || Value < 60){ Value = 120; }
-						// timer.cancel();
+						timer.cancel();
 						// schrittZurueck(0);
 					}
 				}, Value * 1000);
