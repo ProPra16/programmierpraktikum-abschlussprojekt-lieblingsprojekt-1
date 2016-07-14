@@ -17,6 +17,7 @@ public class CaAction extends BacktoRedAction{
 		CA.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae) {
+				temp = babyValue;
 				if (geladen == true) {
 					sekunden.cancel();
 					sekunden = new Timer();
