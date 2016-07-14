@@ -16,7 +16,7 @@ public class ExitSpeichernActions extends LesenAusXml{
 	public String backUp;
 	public int Value;
 	
-	public void exitAction(Button exit, Timer timer)
+	public void exitAction(Button exit, Timer timer,Timer sekunden)
 	{
 		exit.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -25,7 +25,7 @@ public class ExitSpeichernActions extends LesenAusXml{
 				Stage stage_schliessen = new Stage();
 				stage_schliessen.setTitle("Schliessen");
 				try {
-					stage_schliessen.setScene(new Scene(schluss(stage_schliessen,timer)));
+					stage_schliessen.setScene(new Scene(schluss(stage_schliessen,timer,sekunden)));
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -35,7 +35,7 @@ public class ExitSpeichernActions extends LesenAusXml{
 		});
 	}
 	
-	private Parent schluss(Stage stage_schliessen, Timer timer) throws Exception {
+	private Parent schluss(Stage stage_schliessen, Timer timer,Timer sekunden) throws Exception {
 
 					Pane root2 = new Pane();
 					root2.setPrefSize(250, 200);
@@ -54,6 +54,7 @@ public class ExitSpeichernActions extends LesenAusXml{
 					close.setOnAction(new EventHandler<ActionEvent>() {
 						public void handle(ActionEvent ae) {
 							timer.cancel();
+							sekunden.cancel();
 							System.exit(0);
 					}
 					});
