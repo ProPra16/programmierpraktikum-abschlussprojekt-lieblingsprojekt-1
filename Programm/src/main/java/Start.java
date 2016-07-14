@@ -58,6 +58,7 @@ public class Start extends Application {
 		// Button zum Starten damit der Uebungskatalog in einem neuen Fenster
 		// angezeigt wird
 		Button ubung = verkurzenObjekt.ubung();	
+		Label willkommen= verkurzenObjekt.willkommen();
 		Label ersterSchritt= verkurzenObjekt.ersterSchritt();
 		Button CA=verkurzenObjekt.CA();
         Label Akzeptanztest=verkurzenObjekt.Akzeptanztest();
@@ -158,6 +159,7 @@ public class Start extends Application {
 		// Fuege Labels hinzu
 		root.getChildren().add(label);
 		root.getChildren().add(ersterSchritt);
+		root.getChildren().add(willkommen);
 		root.getChildren().add(label1);
 		root.getChildren().add(CA);
 		root.getChildren().add(Akzeptanztest);
