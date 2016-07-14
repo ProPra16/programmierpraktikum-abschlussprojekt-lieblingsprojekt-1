@@ -55,8 +55,8 @@ public class Compilieren {
 	}
 	
 	public boolean starteCompiler(String codeTest, String nameTest, String codeMain, String nameMain){
-		CompilationUnit classTest = new CompilationUnit(nameTest, codeTest, true);
-		CompilationUnit classMain = new CompilationUnit(nameMain, codeMain, false);
+		classTest = new CompilationUnit(nameTest, codeTest, true);
+		classMain = new CompilationUnit(nameMain, codeMain, false);
 		javaCompilers = CompilerFactory.getCompiler(classMain, classTest);
 		javaCompilers.compileAndRunTests();
 		return javaCompilers.getCompilerResult().hasCompileErrors();
