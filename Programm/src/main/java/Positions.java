@@ -10,11 +10,21 @@ public class Positions extends PruefeProgActions {
 	public Button ubung()
 	{
 		Button ubung =new Button("1. Uebung reinladen");
-		ubung.setLayoutX(20);
-		ubung.setLayoutY(20);
+		ubung.setLayoutX(200);
+		ubung.setLayoutY(50);
 		ubung.setId("ubung");
 		ubung.setStyle("-fx-text-fill: BLUE;");
 		return ubung;
+	}
+	
+	public Label ersterSchritt()
+	{
+		Label ersterSchritt =new Label("Wähle zunächst eine Übung aus, um mit dem Testen und Programmieren beginnen zu können.");
+		ersterSchritt.setLayoutX(20);
+		ersterSchritt.setLayoutY(20);
+		ersterSchritt.setId("ersterSchritt");
+		//ersterSchritt.setStyle("-fx-text-fill: BLUE;");
+		return ersterSchritt;
 	}
 	
 	public Button CA()

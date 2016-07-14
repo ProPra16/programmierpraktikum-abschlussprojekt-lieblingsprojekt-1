@@ -55,9 +55,10 @@ public class Start extends Application {
 		Pane root = new Pane();
 		root.setPrefSize(1200, 700);
 
-		// Button zum starten damit der Uebungskatalog in einem neuen Fenster
+		// Button zum Starten damit der Uebungskatalog in einem neuen Fenster
 		// angezeigt wird
-		Button ubung = verkurzenObjekt.ubung();			
+		Button ubung = verkurzenObjekt.ubung();	
+		Label ersterSchritt= verkurzenObjekt.ersterSchritt();
 		Button CA=verkurzenObjekt.CA();
         Label Akzeptanztest=verkurzenObjekt.Akzeptanztest();
 		TextArea AkzTest = verkurzenObjekt.AkzTest();
@@ -156,6 +157,7 @@ public class Start extends Application {
 
 		// Fuege Labels hinzu
 		root.getChildren().add(label);
+		root.getChildren().add(ersterSchritt);
 		root.getChildren().add(label1);
 		root.getChildren().add(CA);
 		root.getChildren().add(Akzeptanztest);
