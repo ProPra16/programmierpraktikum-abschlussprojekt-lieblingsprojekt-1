@@ -23,9 +23,18 @@ public class CaAction extends BacktoRedAction{
 							// timer.cancel();
 							// schrittZurueck(1);
 						}
-					}, babyValue * 1000);
+					}, babyValue * 1000);			
+					String AktestHaupt=
+					"import static org.junit.Assert.*;\n"
+					+ "import org.junit.Test;\n"
+					+ "public class Akzeptanztest{\n"
+					+ "      @Test\n"
+					+ "      public void aTest(){\n"
+					+ "            assertEquals(null,TestCode.convert());\n"
+					+ "      }\n"
+					+ "}\n";			
 
-					AkzTest.setText(klasseTest.getCode());
+					AkzTest.setText(AktestHaupt);
 					// red.setDisable(false);
 					textProgramm.setDisable(true);
 					textProgramm.setText(klasseMain.getCode());
@@ -36,11 +45,6 @@ public class CaAction extends BacktoRedAction{
 		backUpMain=backUp;
 		
 	}
-	
-	
-	
-	
-	
-	
+
 
 }
