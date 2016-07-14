@@ -148,7 +148,7 @@ public class Start extends Application {
 		// Wenn der Test erfolgreich ist dann kann der GREEN Prozess gestartet
 		// werden
 		verkurzenObjekt.startTestaction(startTest, klasseTest, klasseMain, textTest, textProgramm,
-				textKonsole, testErfolgreich, backtoRed, green);
+				textKonsole, testErfolgreich, red, green);
 		
 		verkurzenObjekt.pruefeProgAction(pruefeProg, backtoRed, green, backtoRed,textTest, textProgramm,
 				textKonsole,klasseTest, klasseMain,testErfolgreich, aktzeptanzCheckbox);
