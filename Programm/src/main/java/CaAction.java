@@ -20,7 +20,7 @@ public class CaAction extends BacktoRedAction{
 				temp = babyValue;
 				if (geladen == true) {
 					sekunden.cancel();
-					sekunden = new Timer();
+					Timer sekunden = new Timer();
 					sekunden.schedule(new TimerTask() {
 						@Override
 						public void run() {
