@@ -5,17 +5,29 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 public class CaAction extends BacktoRedAction{
 	
 
-	public void caAction(Button CA, JavaFile klasseTest, JavaFile klasseMain, JavaFile klasseAkzeptanzTest, int babyValue, boolean geladen, Timer timer, TextArea AkzTest, TextArea textProgramm, String backUpMain)
+	public void caAction(Button CA, JavaFile klasseTest, JavaFile klasseMain, JavaFile klasseAkzeptanzTest, int babyValue, boolean geladen, Timer timer, TextArea AkzTest, TextArea textProgramm, String backUpMain,TextField counter,Timer sekunden)
 	{
 		backUp=backUpMain;
 		CA.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae) {
 				if (geladen == true) {
+					int temp = babyValue;
+					sekunden.cancel();
+					sekunden = new Timer();
+					sekunden.schedule(new TimerTask() {
+						@Override
+						public void run() {
+							if(temp == 0)sekunden.cancel();
+							counter.setText("Noch"+temp+"Sekunden");
+							if(temp != 0) temp--;
+						}
+					}, 1000,1000);
 					timer.schedule(new TimerTask() {
 						@Override
 						public void run() {
