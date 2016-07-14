@@ -46,7 +46,7 @@ public class ExitSpeichernActions extends LesenAusXml{
 					
 					Button close = new Button("Close");
 					
-					close.setLayoutX(50);
+					close.setLayoutX(150);
 					close.setLayoutY(100);
 					close.setId("close");
 					close.setStyle("-fx-text-fill: RED;");
@@ -57,14 +57,36 @@ public class ExitSpeichernActions extends LesenAusXml{
 					}
 					});
 					
+					
+					Button abbrechen = new Button("Abbrechen");
+					
+					abbrechen.setLayoutX(50);
+					abbrechen.setLayoutY(100);
+					abbrechen.setId("abbrechen");
+					
+					abbrechen.setOnAction(new EventHandler<ActionEvent>() {
+						public void handle(ActionEvent ae) {
+							stage_schliessen.close();
+							
+					}
+					});
+					
 					root2.getChildren().add(schliesstext);
 					root2.getChildren().add(close);
+					root2.getChildren().add(abbrechen);
 					return root2;
 					
-					}
+					
+	
+	
+					
+	
+	
+	
+}
 				
 		
-		
+
 		
 
 	
