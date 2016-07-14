@@ -76,7 +76,7 @@ public class Positions extends PruefeProgActions {
 		TextField counter = new TextField("");
 		counter.setLayoutX(200);
 		counter.setLayoutY(600);
-		counter.Disable(true);
+		counter.setEditable(false);
 		return counter;
 	}
 	public TextArea AkzTest()
