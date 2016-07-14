@@ -4,6 +4,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.Reflection;
@@ -23,7 +24,7 @@ public class Positions extends PruefeProgActions {
 	
 	public Label ersterSchritt()
 	{
-		Label ersterSchritt =new Label("Waehlen Sie zunaechst eine Übung aus, um mit dem Testen und Programmieren beginnen zu koennen.");
+		Label ersterSchritt =new Label("Waehlen Sie zunaechst eine Ãœbung aus, um mit dem Testen und Programmieren beginnen zu koennen.");
 		ersterSchritt.setLayoutX(20);
 		ersterSchritt.setLayoutY(85);
 		ersterSchritt.setId("ersterSchritt");
@@ -47,7 +48,7 @@ public class Positions extends PruefeProgActions {
 	
 	public Label verweisaufakztest()
 	{
-		Label verweisaufakztest =new Label("Bitte schreiben Sie als naechstes einen für die ausgesuchte Aufgabe geeigneten Akzeptanztest (siehe auf der rechten Seite).");
+		Label verweisaufakztest =new Label("Bitte schreiben Sie als naechstes einen fÃ¼r die ausgesuchte Aufgabe geeigneten Akzeptanztest (siehe auf der rechten Seite).");
 		verweisaufakztest.setLayoutX(20);
 		verweisaufakztest.setLayoutY(140);
 		verweisaufakztest.setId("verweisaufakztest");
@@ -69,6 +70,14 @@ public class Positions extends PruefeProgActions {
 		Akzeptanztest.setId("Akzeptanztest");
 		Akzeptanztest.setStyle("-fx-text-fill: BLUE;");
 		return Akzeptanztest;
+	}
+	public TextField counter()
+	{
+		TextField counter = new TextField("");
+		counter.setLayoutX(200);
+		counter.setLayoutY(600);
+		counter.Disable(true);
+		return counter;
 	}
 	public TextArea AkzTest()
 	{
