@@ -19,8 +19,8 @@ public class RedAction extends AkzepTestAction {
 		red.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae) {
+				temp = babyValue;
 				if (geladen == true) {
-					temp = babyValue;
 					sekunden.cancel();
 					Timer sekunden = new Timer();
 					sekunden.schedule(new TimerTask() {
