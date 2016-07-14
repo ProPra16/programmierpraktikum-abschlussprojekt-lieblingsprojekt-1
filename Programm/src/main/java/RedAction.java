@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 
 public class RedAction extends AkzepTestAction {
 	
+	private int temp = 0;
 	
 	public void redAction(Button red, Button startTest, JavaFile klasseMain, JavaFile klasseTest, int babyValue, boolean geladen, Timer timer, TextArea textTest, TextArea textProgramm, String backUpMain,Timer sekunden,TextField counter)
 	{
@@ -19,7 +20,7 @@ public class RedAction extends AkzepTestAction {
 			@Override
 			public void handle(ActionEvent ae) {
 				if (geladen == true) {
-					int final temp = babyValue;
+					temp = babyValue;
 					sekunden.cancel();
 					Timer sekunden = new Timer();
 					sekunden.schedule(new TimerTask() {
