@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 
 public class CaAction extends BacktoRedAction{
 	
+	private int temp = 0;
 
 	public void caAction(Button CA, JavaFile klasseTest, JavaFile klasseMain, JavaFile klasseAkzeptanzTest, int babyValue, boolean geladen, Timer timer, TextArea AkzTest, TextArea textProgramm, String backUpMain,TextField counter,Timer sekunden)
 	{
@@ -16,7 +17,7 @@ public class CaAction extends BacktoRedAction{
 		CA.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae) {
-				int final temp = babyValue;
+				temp = babyValue;
 				if (geladen == true) {
 					sekunden.cancel();
 					sekunden = new Timer();
