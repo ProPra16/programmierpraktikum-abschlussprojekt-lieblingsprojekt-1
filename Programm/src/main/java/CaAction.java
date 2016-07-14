@@ -20,6 +20,8 @@ public class CaAction extends BacktoRedAction{
 				temp = babyValue;
 				if (geladen == true) {
 					sekunden.cancel();
+					timer.cancel();
+					Timer timer = new Timer();
 					Timer sekunden = new Timer();
 					sekunden.schedule(new TimerTask() {
 						@Override
@@ -32,8 +34,8 @@ public class CaAction extends BacktoRedAction{
 					timer.schedule(new TimerTask() {
 						@Override
 						public void run() {
-							AkzTest.setText("");
-							// timer.cancel();
+							AkzTest.setText(AktestHaupt);
+							timer.cancel();
 							// schrittZurueck(1);
 						}
 					}, babyValue * 1000);			
