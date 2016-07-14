@@ -22,6 +22,8 @@ public class RedAction extends AkzepTestAction {
 			public void handle(ActionEvent ae) {
 				if (geladen == true) {
 					sekunden.cancel();
+					timer.cancel();
+					Timer timer = new Timer();
 					Timer sekunden = new Timer();
 					sekunden.schedule(new TimerTask() {
 						@Override
@@ -36,7 +38,7 @@ public class RedAction extends AkzepTestAction {
 						public void run() {
 							textTest.setText(klasseTest.getCode());
 							if(Value > 180 || Value < 60){ Value = 120; }
-							// timer.cancel();
+							timer.cancel();
 							// schrittZurueck(1);
 						}
 					}, Value * 1000);
