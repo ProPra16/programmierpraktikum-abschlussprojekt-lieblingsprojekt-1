@@ -4,7 +4,7 @@ Für alle Beteiligten hier einige Infos zum Import:<br />
 1. Damit der Ordner lokal für euch verfügbar ist muss folgender Code in der Kommandozeile eingegeben werden:<br />
 git clone https://github.com/ProPra16/programmierpraktikum-abschlussprojekt-lieblingsprojekt-1.git
 
-Für spätere Updates nur noch den Befehl "git push" verwenden!
+Für spätere Updates nur noch den Befehl "git pull" verwenden!
 
 ### Eclipse 
 
@@ -45,3 +45,4 @@ Danach Rechtsklick auf den Ordner res/ und Mark directory as -> Resources Root w
 29.06.2016 - Einbinden der virtual-kata-lib, sodass man nur noch ein Grandle Projekt erzeugen, bzw. importieren muss<br />
 03.07.2016 - Richtige erstellung der .travis.yml Datei mit Output: "Done. Your build exited with 0."<br />
 05.07.2016 - Link für den Travis Test https://travis-ci.org/ProPra16/programmierpraktikum-abschlussprojekt-lieblingsprojekt-1/branches
+14.07.2016 - Erstellung der finalen Datei
