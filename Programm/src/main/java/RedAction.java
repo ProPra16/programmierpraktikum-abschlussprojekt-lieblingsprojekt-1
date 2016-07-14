@@ -14,13 +14,12 @@ public class RedAction extends AkzepTestAction {
 	{
 		Value=babyValue;
 		backUp=backUpMain;
-		int temp = babyValue;
 		
 		red.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae) {
 				if (geladen == true) {
-					temp = babyValue;
+					int final temp = babyValue;
 					sekunden.cancel();
 					sekunden = new Timer();
 					sekunden.schedule(new TimerTask() {
