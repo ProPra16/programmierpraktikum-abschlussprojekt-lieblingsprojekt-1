@@ -114,7 +114,7 @@ public class Start extends Application {
 		verkurzenObjekt.akzepTestAction(AkzepTest, red, klasseAkzeptanzTest, klasseMain, AkzTest, textProgramm, textKonsole, testErfolgreich);
 
 		// Textfeld darf nur geaendert werden wenn der RED Button geklickt wurde
-        verkurzenObjekt.redAction(red, startTest, klasseMain, klasseTest, babyValue, geladen, timer, textTest, textProgramm, backUpMain,counter,sekunden);
+        verkurzenObjekt.redAction(red, startTest, klasseMain, klasseTest, babyValue, geladen, timer, textTest, textProgramm, backUpMain,sekunden,counter);
 
 		// Textfeld darf nur geaendert werden wenn der GREEN Button geklickt
 		// wurde
