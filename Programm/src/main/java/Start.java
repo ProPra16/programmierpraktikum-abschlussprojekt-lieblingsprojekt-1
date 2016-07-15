@@ -172,6 +172,7 @@ public class Start extends Application {
 
 		Pane root = new Pane();
 		root.setPrefSize(400, 400);
+		root.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
 
 		// Liste fuer die Auswahl der Programme
 		ListView<String> list = new ListView<String>();
@@ -221,7 +222,9 @@ public class Start extends Application {
 					babyValue = reinladenobjekt.GetBabystepTime();
 				}
 				isTracked = reinladenobjekt.GetTimetracking();
-				ExtraStage.setScene(new Scene(createContent()));
+				Scene scene2=new Scene(createContent());
+				scene2.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
+				ExtraStage.setScene(scene2);
 				stage_ubung.close();
 
 			}
@@ -236,6 +239,7 @@ public class Start extends Application {
 	public void start(Stage stage) {
 		ExtraStage = stage;
 		scene = new Scene(createContent());
+		scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
 		stage.setTitle("Lieblingsprojekt");		
 		stage.setScene(scene);
 		stage.show();

@@ -18,7 +18,6 @@ public class Positions extends PruefeProgActions {
 		ubung.setLayoutX(250);
 		ubung.setLayoutY(110);
 		ubung.setId("ubung");
-		ubung.setStyle("-fx-text-fill: BLUE;");
 		return ubung;
 	}
 	
@@ -68,7 +67,6 @@ public class Positions extends PruefeProgActions {
 		Akzeptanztest.setLayoutX(700);
 		Akzeptanztest.setLayoutY(30);
 		Akzeptanztest.setId("Akzeptanztest");
-		Akzeptanztest.setStyle("-fx-text-fill: BLUE;");
 		return Akzeptanztest;
 	}
 	public TextField counter()
@@ -105,7 +103,6 @@ public class Positions extends PruefeProgActions {
 		red.setLayoutY(190);
 		red.setDisable(true);
 		red.setId("red");
-		red.setStyle("-fx-background-color: LIGHTPINK;");
 		return red;
 	}
 	public TextArea textTest()
@@ -134,7 +131,6 @@ public class Positions extends PruefeProgActions {
 		green.setLayoutY(425);
 		green.setDisable(true);
 		green.setId("green");
-		green.setStyle("-fx-background-color: LIGHTGREEN;");
 		return green;
 	}
 	public Button exit()
@@ -143,7 +139,6 @@ public class Positions extends PruefeProgActions {
 		exit.setTranslateX(1000);
 		exit.setTranslateY(650);
 		exit.setId("exit");
-		exit.setStyle("-fx-text-fill: RED;");
 		return exit;
 	}
 	public Button speichern()
@@ -152,7 +147,6 @@ public class Positions extends PruefeProgActions {
 		speichern.setTranslateX(850);
 		speichern.setTranslateY(650);
 		speichern.setId("speichern");
-		speichern.setStyle("-fx-text-fill: GREEN;");
 		return speichern;
 	}
 	public TextArea textProgramm()
@@ -192,7 +186,6 @@ public class Positions extends PruefeProgActions {
 		startTest.setTranslateY(215);
 		startTest.setDisable(true);
 		startTest.setId("startTest");
-		startTest.setStyle("-fx-text-fill: BLUE;");
 		return startTest;
 	}
 	public Button pruefeProg()
@@ -211,7 +204,6 @@ public class Positions extends PruefeProgActions {
 		backtoRed.setTranslateY(500);
 		backtoRed.setDisable(true);
 		backtoRed.setId("backtoRed");
-		backtoRed.setStyle("-fx-text-fill: RED;");
 		return backtoRed;
 	}
 	public CheckBox aktzeptanzCheckbox()
