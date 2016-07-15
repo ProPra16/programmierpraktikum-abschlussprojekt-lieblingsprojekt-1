@@ -10,7 +10,16 @@ import javafx.scene.control.TextField;
 public class CaAction extends BacktoRedAction{
 	
 	private int temp = 0;
-
+	String AktestHaupt=
+			"import static org.junit.Assert.*;\n"
+			+ "import org.junit.Test;\n"
+			+ "public class Akzeptanztest{\n"
+			+ "      @Test\n"
+			+ "      public void aTest(){\n"
+			+ "            assertEquals(null,TestCode.convert());\n"
+			+ "      }\n"
+			+ "}\n";
+	
 	public void caAction(Button CA, JavaFile klasseTest, JavaFile klasseMain, JavaFile klasseAkzeptanzTest, int babyValue, boolean geladen, Timer timer, TextArea AkzTest, TextArea textProgramm, String backUpMain,TextField counter,Timer sekunden)
 	{
 		backUp=backUpMain;
@@ -39,15 +48,7 @@ public class CaAction extends BacktoRedAction{
 							// schrittZurueck(1);
 						}
 					}, babyValue * 1000);			
-					String AktestHaupt=
-					"import static org.junit.Assert.*;\n"
-					+ "import org.junit.Test;\n"
-					+ "public class Akzeptanztest{\n"
-					+ "      @Test\n"
-					+ "      public void aTest(){\n"
-					+ "            assertEquals(null,TestCode.convert());\n"
-					+ "      }\n"
-					+ "}\n";	
+						
 					
 					klasseAkzeptanzTest.setCode(AktestHaupt);
 
