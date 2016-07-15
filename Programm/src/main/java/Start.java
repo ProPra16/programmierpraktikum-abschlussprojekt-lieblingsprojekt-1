@@ -7,6 +7,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
+import com.sun.prism.Image;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,6 +44,7 @@ public class Start extends Application {
 	private NodeList tableNodeList; 
 	private Stage ExtraStage;	
 	private Positions verkurzenObjekt=new Positions();
+	private javafx.scene.image.Image icon=new javafx.scene.image.Image(getClass().getResourceAsStream("im.png"));
 	
 	private Parent createContent() {
 		Pane root = new Pane();
@@ -173,6 +176,7 @@ public class Start extends Application {
 		Pane root = new Pane();
 		root.setPrefSize(400, 400);
 		root.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
+		stage_ubung.getIcons().add(icon);
 
 		// Liste fuer die Auswahl der Programme
 		ListView<String> list = new ListView<String>();
@@ -242,6 +246,8 @@ public class Start extends Application {
 		scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
 		stage.setTitle("Lieblingsprojekt");		
 		stage.setScene(scene);
+		//javafx.scene.image.Image icon=new javafx.scene.image.Image(getClass().getResourceAsStream("im.png"));
+		stage.getIcons().add(icon);
 		stage.show();
 	}
 
