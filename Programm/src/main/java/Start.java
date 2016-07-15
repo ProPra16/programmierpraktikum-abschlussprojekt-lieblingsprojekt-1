@@ -222,6 +222,7 @@ public class Start extends Application {
 				}
 				isTracked = reinladenobjekt.GetTimetracking();
 				ExtraStage.setScene(new Scene(createContent()));
+				stage_ubung.close();
 
 			}
 		});
